@@ -33,4 +33,11 @@ public class Prescription {
 
     @Size(max = 200)
     private String doctorNotes;
+
+    @NotNull
+    private String refillCount;
+
+    @NotNull
+    @Size(min = 3, max = 200)
+    private String pharmacyName;
 }

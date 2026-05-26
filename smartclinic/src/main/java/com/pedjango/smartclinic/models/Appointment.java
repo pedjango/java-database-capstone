@@ -10,6 +10,7 @@ import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Transient;
 import jakarta.validation.constraints.Future;
 import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -42,6 +43,12 @@ public class Appointment {
 
     @NotNull(message = "Status cannot be null, allowed values are 0 and 1")
     private Integer status;
+
+    @Size(max = 300)
+    private String reasonForVisit;
+
+    @Size(max = 300)
+    private String notes;
 
     @Transient
     public LocalDateTime getEndTime() {

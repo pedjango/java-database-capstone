@@ -46,4 +46,8 @@ public class Doctor {
 
     @ElementCollection
     private List<String> availableTimes;
+
+    private Integer yearsOfExperience;
+
+    private String clinicAddress;
 }

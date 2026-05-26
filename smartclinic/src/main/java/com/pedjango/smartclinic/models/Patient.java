@@ -6,11 +6,14 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Past;
 import jakarta.validation.constraints.Pattern;
 import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+
+import java.time.LocalDateTime;
 
 @Data
 @AllArgsConstructor
@@ -40,4 +43,12 @@ public class Patient {
     @NotNull(message = "Address cannot be null")
     @Size(max = 255)
     private String address;
+
+    @Past
+    private LocalDateTime dateOfBirth;
+
+    @Pattern(regexp = "\\d{10}", message = "Phone number must be 10 digits")
+    private String emergencyContact;
+
+    private String insuranceProvider;
 }
