@@ -1,0 +1,24 @@
+spring:
+  application:
+    name: Smart Clinic Management System
+
+  datasource:
+    url: jdbc:mysql://172.21.255.52:3306/cms
+    username: root
+    password: XsUdh1kZYHzvWtIBg4M2th8r
+    driver-class-name: com.mysql.cj.jdbc.Driver
+  jpa:
+    hibernate:
+      ddl-auto: update
+    properties:
+      hibernate:
+        format_sql: true
+        dialect: org.hibernate.dialect.MySQLDialect
+  mongodb:
+    uri: mongodb://root:ONdPC4SYzMuYhXXSHIANsDKF@172.21.250.20:27017/prescriptions
+
+  # Set active profile to 'dev' when using Docker Compose
+  docker:
+    compose:
+      profiles:
+        active: 'dev'
