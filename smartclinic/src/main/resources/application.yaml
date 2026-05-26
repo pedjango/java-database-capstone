@@ -1,0 +1,3 @@
+spring:
+  application:
+    name: Smart Clinic Management System
