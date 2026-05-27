@@ -1,0 +1,134 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html, body {
+    height: 100%;
+    font-family: Arial, sans-serif;
+    background-color: #F5F7FA;
+}
+
+.container {
+    width: 100%;
+    min-height: 100vh;
+}
+
+.wrapper {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+.main-content {
+    flex: 1;
+    padding: 20px;
+}
+
+.card-actions {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #1F1F1F;
+    color: #FFFFFF;
+    padding: 12px;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.25s ease, transform 0.2s ease;
+}
+
+.card-actions:hover {
+    background-color: #2A2A2A;
+    transform: translateY(-2px);
+}
+
+.card-actions button {
+    background-color: #0F62FE;
+    color: #FFFFFF;
+    border: none;
+    padding: 8px 14px;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: filter 0.2s ease;
+}
+
+.card-actions button:hover {
+    filter: brightness(1.2);
+}
+
+.ripple {
+    position: fixed;
+    border-radius: 50%;
+    background: rgba(0, 0, 0, 0.25);
+    transform: scale(0);
+    animation: rippleEffect 600ms ease-out;
+    pointer-events: none;
+    z-index: 9999;
+}
+
+@keyframes rippleEffect {
+    to {
+        transform: scale(4);
+        opacity: 0;
+    }
+}
+
+.modalApp {
+    position: fixed;
+    left: 50%;
+    bottom: -100%;
+    transform: translateX(-50%);
+    width: 100%;
+    max-width: 500px;
+    background-color: #FFFFFF;
+    padding: 20px;
+    border-top-left-radius: 16px;
+    border-top-right-radius: 16px;
+    box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.2);
+    transition: bottom 0.35s ease-in-out;
+    z-index: 10000;
+}
+
+.modalApp.active {
+    bottom: 0;
+}
+
+.modalApp input,
+.modalApp select {
+    width: 90%;
+    margin: 10px auto;
+    display: block;
+    padding: 10px;
+    border-radius: 6px;
+    border: 1px solid #CCC;
+    outline: none;
+    font-size: 14px;
+}
+
+.modalApp input:focus,
+.modalApp select:focus {
+    border-color: #0F62FE;
+}
+
+.booking-btn {
+    width: 90%;
+    margin: 15px auto;
+    display: block;
+    background-color: #1F1F1F;
+    color: #FFFFFF;
+    padding: 12px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: filter 0.2s ease, transform 0.2s ease;
+}
+
+.booking-btn:hover {
+    filter: brightness(1.2);
+    transform: translateY(-1px);
+}
+
+.hidden {
+    display: none;
+}

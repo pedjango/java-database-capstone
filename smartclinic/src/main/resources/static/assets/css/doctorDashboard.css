@@ -1,0 +1,158 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html, body {
+    height: 100%;
+    font-family: Arial, sans-serif;
+    background-color: #F5F7FA;
+    color: #1F2937;
+}
+
+.container {
+    width: 100%;
+    min-height: 100vh;
+}
+
+.wrapper {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+.main-content {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    padding: 2rem;
+    background-color: #0F172A;
+    color: #FFFFFF;
+}
+
+.dashboard-controls,
+.filter-section {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+}
+
+.input-field {
+    padding: 0.8rem 1rem;
+    border-radius: 10px;
+    border: 1px solid #CBD5E1;
+    font-size: 1rem;
+    width: 100%;
+    max-width: 350px;
+    transition: all 0.3s ease;
+}
+
+.input-field:focus {
+    border-color: #0284C7;
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(2, 132, 199, 0.2);
+}
+
+.button {
+    padding: 0.8rem 1.2rem;
+    border: none;
+    border-radius: 10px;
+    background-color: #015C5D;
+    color: #FFFFFF;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.button:hover {
+    background-color: #017D7E;
+    transform: translateY(-2px);
+}
+
+.table-section {
+    overflow-x: auto;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 1rem;
+    background-color: #FFFFFF;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+}
+
+thead {
+    background-color: rgba(15, 23, 42, 0.9);
+    color: #FFFFFF;
+}
+
+thead th {
+    padding: 1rem;
+    text-align: left;
+    font-size: 0.95rem;
+}
+
+tbody td {
+    padding: 0.9rem;
+    border-bottom: 1px solid #E2E8F0;
+    font-size: 0.95rem;
+}
+
+tbody tr:nth-child(even) {
+    background-color: #F8FAFC;
+}
+
+tbody tr:hover {
+    background-color: #E2E8F0;
+}
+
+.prescription-btn {
+    padding: 0.4rem 0.8rem;
+    border: none;
+    border-radius: 8px;
+    background-color: #0EA5E9;
+    color: #FFFFFF;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.prescription-btn:hover {
+    transform: scale(1.05);
+    filter: brightness(1.1);
+}
+
+.noPatientRecord {
+    font-style: italic;
+    color: #64748B;
+    text-align: center;
+    padding: 1rem;
+}
+
+.footer {
+    width: 100%;
+    padding: 1.5rem 2rem;
+    background-color: #0F172A;
+    color: #CBD5E1;
+}
+
+@media (max-width: 768px) {
+    .dashboard-controls,
+    .filter-section {
+        flex-direction: column;
+    }
+
+    .input-field {
+        max-width: 100%;
+    }
+
+    thead th,
+    tbody td {
+        font-size: 0.85rem;
+        padding: 0.7rem;
+    }
+}
