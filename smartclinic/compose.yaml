@@ -6,9 +6,9 @@ services:
     environment:
       - 'MONGO_INITDB_DATABASE=prescriptions'
       - 'MONGO_INITDB_ROOT_PASSWORD=secret'
-      - 'MONGO_INITDB_ROOT_USERNAME=root'
+      - 'MONGO_INITDB_ROOT_USERNAME=admin'
     ports:
-      - '27017'
+      - '27017:27017'
   mysql:
     profiles:
       - 'dev'
@@ -17,6 +17,6 @@ services:
       - 'MYSQL_DATABASE=cms'
       - 'MYSQL_PASSWORD=secret'
       - 'MYSQL_ROOT_PASSWORD=verysecret'
-      - 'MYSQL_USER=root'
+      - 'MYSQL_USER=admin'
     ports:
-      - '3306'
+      - '3306:3306'
