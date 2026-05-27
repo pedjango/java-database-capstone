@@ -1,3 +1,3 @@
 SELECT *
-FROM DOCTOR
+FROM doctor
 LIMIT 5;

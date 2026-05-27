@@ -1,4 +1,5 @@
-INSERT INTO APPOINTMENT (appointment_time, status, doctor_id, patient_id) VALUES
+INSERT INTO appointment (appointment_time, status, doctor_id, patient_id)
+VALUES
 ('2025-05-01 09:00:00.000000', 0, 1, 1),
 ('2025-05-02 10:00:00.000000', 0, 1, 2),
 ('2025-05-03 11:00:00.000000', 0, 1, 3),

@@ -1,3 +1,3 @@
 SELECT *
-FROM DOCTOR_AVAILABLE_TIMES
+FROM doctor_available_times
 LIMIT 5;
