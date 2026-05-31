@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Doctor Dashboard</title>
+
+        <link rel="icon" type="image/png" th:href="@{/assets/images/favicon.png}" />
+        <link rel="stylesheet" th:href="@{/assets/css/adminDashboard.css}" />
+        <link rel="stylesheet" th:href="@{/assets/css/doctorDashboard.css}" />
+        <link rel="stylesheet" th:href="@{/assets/css/style.css}" />
+
+        <script th:src="@{/js/render.js}" defer></script>
+        <script th:src="@{/js/util.js}" defer></script>
+        <script th:src="@{/js/components/header.js}" defer></script>
+        <script th:src="@{/js/components/footer.js}" defer></script>
+        <script th:src="@{/js/components/patientRows.js}" defer></script>
+        <script th:src="@{/js/services/patientServices.js}" defer></script>
+        <script th:src="@{/js/services/doctorDashboard.js}" defer></script>
+    </head>
+
+    <body>
+        <div class="container">
+            <div class="wrapper">
+                <div id="header"></div>
+
+                <main class="main-content">
+                    <section class="dashboard-controls">
+                        <input type="text" id="searchBar" class="input-field" placeholder="Search patient by name or email" />
+                    </section>
+
+                    <section class="filter-section">
+                        <button id="todayAppointmentsBtn" class="button">
+                            Today's Appointments
+                        </button>
+
+                        <input type="date" id="appointmentDate" class="input-field" />
+                    </section>
+
+                    <section class="table-section">
+                        <table id="patientTable">
+                            <thead>
+                                <tr>
+                                    <th>Patient ID</th>
+                                    <th>Name</th>
+                                    <th>Phone</th>
+                                    <th>Email</th>
+                                    <th>Prescription</th>
+                                </tr>
+                            </thead>
+
+                            <tbody id="patientTableBody"></tbody>
+                        </table>
+                    </section>
+                </main>
+
+                <div id="footer"></div>
+            </div>
+        </div>
+    </body>
+</html>
