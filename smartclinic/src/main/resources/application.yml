@@ -22,3 +22,14 @@ spring:
     compose:
       profiles:
         active: 'dev'
+
+  web:
+    resources:
+      static-locations: classpath:/static/
+
+  thymeleaf:
+    prefix: classpath:/templates/
+    suffix: .html
+    mode: HTML
+    cache: false
+    encoding: UTF-8
