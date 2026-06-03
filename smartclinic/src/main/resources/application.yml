@@ -33,3 +33,10 @@ spring:
     mode: HTML
     cache: false
     encoding: UTF-8
+
+api:
+  path: /api/
+
+#jwt.secret: $!@#$^%$$$%####$DDCPN0234FCFDPD8670M
+jwt:
+  secret: ThisIsASecretKeyForJwtGenerationAndItShouldBeAtLeast256BitsLong!
