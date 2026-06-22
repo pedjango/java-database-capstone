@@ -41,7 +41,7 @@ public class AppointmentController {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Invalid or expired token.");
         }
 
-        Long doctorId = service.tokenService.extractDoctorIdFromToken(token); // optional utility
+        Long doctorId = service.validateDoctorId(token);
         if (doctorId == null) {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Doctor ID missing or invalid.");
         }

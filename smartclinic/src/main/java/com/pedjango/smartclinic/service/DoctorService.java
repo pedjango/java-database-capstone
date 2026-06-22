@@ -33,7 +33,7 @@ public class DoctorService {
         if (optionalDoctor.isEmpty()) return Collections.emptyList();
 
         Doctor doctor = optionalDoctor.get();
-        List<String> allSlots = doctor.getAvailableTimes(); // assume Set<LocalTime>
+        List<String> allSlots = doctor.getAvailableTimes();
 
         List<Appointment> bookedAppointments = appointmentRepository
                 .findByDoctorIdAndAppointmentTimeBetween(
@@ -43,19 +43,19 @@ public class DoctorService {
                 );
 
         Set<LocalTime> bookedSlots = bookedAppointments.stream()
-                .map(appt -> appt.getAppointmentTime().toLocalTime())
+                .map(appointment -> appointment.getAppointmentTime().toLocalTime())
                 .collect(Collectors.toSet());
 
         return allSlots.stream()
                 .filter(slot -> !bookedSlots.contains(slot))
                 .sorted()
-                .collect(Collectors.toList());
+                .toList();
     }
 
     @Transactional
     public int saveDoctor(Doctor doctor) {
         if (doctorRepository.findByEmail(doctor.getEmail()) != null) {
-            return -1; // Conflict
+            return -1;
         }
         try {
             doctorRepository.save(doctor);
@@ -119,13 +119,16 @@ public class DoctorService {
     }
 
     public List<Doctor> filterDoctorsByTime(List<Doctor> doctors, String timePeriod) {
-        return doctors.stream().filter(doctor ->
-                doctor.getAvailableTimes().stream().anyMatch(timeStr -> {
-                    LocalTime time = LocalTime.parse(timeStr);
-                    return timePeriod.equalsIgnoreCase("AM") ? time.isBefore(LocalTime.NOON)
-                            : time.isAfter(LocalTime.NOON);
-                })
-        ).collect(Collectors.toList());
+        return doctors.stream()
+                .filter(doctor ->
+                        doctor.getAvailableTimes().stream().anyMatch(timeStr -> {
+                            String startTimeStr = timeStr.split("-")[0];
+                            LocalTime time = LocalTime.parse(startTimeStr);
+                            return timePeriod.equalsIgnoreCase("AM")
+                                    ? time.isBefore(LocalTime.NOON)
+                                    : time.isAfter(LocalTime.NOON);
+                        })
+                ).toList();
     }
 
     @Transactional

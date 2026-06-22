@@ -7,12 +7,15 @@
 
         <link rel="icon" type="image/png" th:href="@{/assets/images/favicon.png}" />
         <link rel="stylesheet" th:href="@{/assets/css/adminDashboard.css}" />
+        <link rel="stylesheet" th:href="@{/assets/css/index.css}" />
         <link rel="stylesheet" th:href="@{/assets/css/style.css}" />
 
         <script th:src="@{/js/render.js}" defer></script>
         <script th:src="@{/js/util.js}" defer></script>
         <script th:src="@{/js/components/header.js}" defer></script>
         <script th:src="@{/js/components/footer.js}" defer></script>
+        <script th:src="@{/js/components/doctorCard.js}" defer th:type="module"></script>
+        <script th:src="@{/js/adminDashboard.js}" defer th:type="module"></script>
     </head>
 
     <body>
@@ -28,18 +31,18 @@
 
                         <div class="filter-section">
                             <select id="filterTime" class="select-dropdown">
-                                <option value="">Sort by Time</option>
-                                <option value="morning">Morning</option>
-                                <option value="afternoon">Afternoon</option>
-                                <option value="evening">Evening</option>
+                                <option value="">All Time Slots</option>
+                                <option value="AM">Morning (AM)</option>
+                                <option value="PM">Afternoon (PM)</option>
                             </select>
 
                             <select id="filterSpecialty" class="select-dropdown">
-                                <option value="">Filter by Specialty</option>
-                                <option value="cardiology">Cardiology</option>
-                                <option value="neurology">Neurology</option>
-                                <option value="dermatology">Dermatology</option>
-                                <option value="general">General Medicine</option>
+                                <option value="">All Specialties</option>
+                                <option value="Cardiologist">Cardiologist</option>
+                                <option value="Dermatologist">Dermatologist</option>
+                                <option value="Neurologist">Neurologist</option>
+                                <option value="Orthopedist">Orthopedist</option>
+                                <option value="Pediatrician">Pediatrician</option>
                             </select>
                         </div>
                     </section>
@@ -59,8 +62,5 @@
                 <div id="modal-body"></div>
             </div>
         </div>
-
-        <script type="module" src="../../static/js/adminDashboard.js" defer></script>
-        <script type="module" src="../../static/js/components/doctorCard.js" defer></script>
     </body>
 </html>

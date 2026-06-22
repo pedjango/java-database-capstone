@@ -1,12 +1,12 @@
 import { openModal } from "../components/modals.js";
 import { API_BASE_URL } from "../config/config.js";
 
-const ADMIN_API = API_BASE_URL + "/admin";
-const DOCTOR_API = API_BASE_URL + "/doctor/login";
+const ADMIN_BASE_API = API_BASE_URL + "/admin";
+const DOCTOR_BASE_API = API_BASE_URL + "/doctor";
 
-function selectRole(role) {
+window.selectRole = function(role) {
   localStorage.setItem("userRole", role);
-}
+};
 
 window.onload = function () {
   const adminBtn = document.getElementById("adminLogin");
@@ -35,13 +35,15 @@ window.adminLoginHandler = async function () {
   };
 
   try {
-    const response = await fetch(ADMIN_API, {
+    const response = await fetch(ADMIN_BASE_API + '/login', {
       method: "POST",
       headers: {
         "Content-Type": "application/json"
       },
       body: JSON.stringify(admin)
     });
+
+    console.log(response);
 
     if (response.ok) {
       const data = await response.json();
@@ -67,7 +69,7 @@ window.doctorLoginHandler = async function () {
   };
 
   try {
-    const response = await fetch(DOCTOR_API, {
+    const response = await fetch(DOCTOR_BASE_API + '/login', {
       method: "POST",
       headers: {
         "Content-Type": "application/json"
@@ -79,7 +81,7 @@ window.doctorLoginHandler = async function () {
       const data = await response.json();
       localStorage.setItem("token", data.token);
       selectRole("doctor");
-      window.location.href = `/doctorDashboard/${data.token}`;
+      window.location.href = `${DOCTOR_BASE_API}/doctorDashboard/${data.token}`;
     } else {
       alert("Invalid credentials!");
     }

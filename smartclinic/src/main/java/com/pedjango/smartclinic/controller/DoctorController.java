@@ -23,7 +23,7 @@ import java.util.List;
 import java.util.Map;
 
 @RestController
-@RequestMapping("${api.path}doctor")
+@RequestMapping("/api/doctor")
 public class DoctorController {
 
     private final DoctorService doctorService;
@@ -49,7 +49,7 @@ public class DoctorController {
         return ResponseEntity.ok(Map.of("availableSlots", availableSlots));
     }
 
-    @GetMapping("/all")
+    @GetMapping
     public ResponseEntity<?> getDoctor() {
         List<Doctor> doctors = doctorService.getDoctors();
         return ResponseEntity.ok(Map.of("doctors", doctors));
@@ -71,7 +71,8 @@ public class DoctorController {
 
     @PostMapping("/login")
     public ResponseEntity<?> doctorLogin(@RequestBody Login login) {
-        return ResponseEntity.ok(doctorService.validateDoctor(login.getEmail(), login.getPassword()));
+        String token = doctorService.validateDoctor(login.getEmail(), login.getPassword());
+        return ResponseEntity.ok(Map.of("token", token));
     }
 
     @PutMapping("/update/{token}/{doctorId}")
@@ -108,9 +109,9 @@ public class DoctorController {
     public ResponseEntity<?> filterDoctor(
             @RequestParam(required = false) String name,
             @RequestParam(required = false) String time,
-            @RequestParam(required = false) String speciality
+            @RequestParam(required = false) String specialty
     ) {
-        List<Doctor> doctors = service.filterDoctor(name, speciality, time);
+        List<Doctor> doctors = service.filterDoctor(name, specialty, time);
         return ResponseEntity.ok(Map.of("doctors", doctors));
     }
 }

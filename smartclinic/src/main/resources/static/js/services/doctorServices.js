@@ -1,10 +1,10 @@
 import { API_BASE_URL } from "../config/config.js";
 
-const DOCTOR_API = API_BASE_URL + "/doctor";
+const DOCTOR_BASE_API = API_BASE_URL + "/doctor";
 
 export async function getDoctors() {
   try {
-    const response = await fetch(DOCTOR_API);
+    const response = await fetch(DOCTOR_BASE_API);
 
     if (!response.ok) {
       throw new Error("Failed to fetch doctors");
@@ -20,7 +20,7 @@ export async function getDoctors() {
 
 export async function deleteDoctor(id, token) {
   try {
-    const response = await fetch(`${DOCTOR_API}/${id}`, {
+    const response = await fetch(`${DOCTOR_BASE_API}/${id}`, {
       method: "DELETE",
       headers: {
         "Authorization": `Bearer ${token}`,
@@ -46,7 +46,7 @@ export async function deleteDoctor(id, token) {
 
 export async function saveDoctor(doctor, token) {
   try {
-    const response = await fetch(DOCTOR_API, {
+    const response = await fetch(DOCTOR_BASE_API + "/register", {
       method: "POST",
       headers: {
         "Authorization": `Bearer ${token}`,
@@ -89,7 +89,7 @@ export async function filterDoctors(name = "", time = "", specialty = "") {
     }
 
     const response = await fetch(
-      `${DOCTOR_API}/filter?${queryParams.toString()}`
+      `${DOCTOR_BASE_API}/filter?${queryParams.toString()}`
     );
 
     if (!response.ok) {

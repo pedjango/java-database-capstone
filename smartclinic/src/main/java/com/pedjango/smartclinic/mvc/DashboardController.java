@@ -25,7 +25,6 @@ public class DashboardController {
         }
     }
 
-    // 4. Doctor dashboard handler
     @GetMapping("/doctorDashboard/{token}")
     public ModelAndView doctorDashboard(@PathVariable("token") String token) {
         boolean isValid = tokenValidationService.validateToken(token, "doctor");

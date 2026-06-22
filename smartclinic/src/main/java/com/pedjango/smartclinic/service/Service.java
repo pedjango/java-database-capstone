@@ -7,14 +7,17 @@ import com.pedjango.smartclinic.models.Patient;
 import com.pedjango.smartclinic.repository.AdminRepository;
 import com.pedjango.smartclinic.repository.DoctorRepository;
 import com.pedjango.smartclinic.repository.PatientRepository;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
+@Slf4j
 @org.springframework.stereotype.Service
 public class Service {
     public final TokenService tokenService;
@@ -54,8 +57,8 @@ public class Service {
                 return ResponseEntity.status(HttpStatus.UNAUTHORIZED)
                         .body("Invalid username or password.");
             }
-            String token = tokenService.generateToken(null, "admin", username);
-            return ResponseEntity.ok(token);
+            String token = tokenService.generateToken(admin.getUsername().concat("-token"));
+            return ResponseEntity.ok(Map.of("token", token));
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
                     .body("Login failed due to an internal error.");
@@ -88,7 +91,7 @@ public class Service {
         if (optional.isEmpty()) return -1;
 
         List<String> availableSlots = doctorService.getDoctorAvailability(doctorId, java.sql.Date.valueOf(date));
-        return availableSlots.contains(time) ? 1 : 0;
+        return availableSlots.contains(String.valueOf(time)) ? 1 : 0;
     }
 
     public boolean validatePatient(Patient patient) {
@@ -102,8 +105,8 @@ public class Service {
                 return ResponseEntity.status(HttpStatus.UNAUTHORIZED)
                         .body("Invalid email or password.");
             }
-            String token = tokenService.generateToken(patient.getId(), "patient", email);
-            return ResponseEntity.ok(token);
+            String token = tokenService.generateToken(email);
+            return ResponseEntity.ok(Map.of("token", token));
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
                     .body("Login failed due to an internal error.");
@@ -112,7 +115,7 @@ public class Service {
 
     public List<AppointmentDTO> filterPatient(String token, String condition, String doctorName) {
         try {
-            String email = tokenService.extractEmailFromToken(token);
+            String email = tokenService.extractSubject(token);
             Patient patient = patientRepository.findByEmail(email);
 
             if (patient == null) return List.of();
@@ -132,6 +135,16 @@ public class Service {
         } catch (Exception e) {
             e.printStackTrace();
             return List.of();
+        }
+    }
+
+    public Long validateDoctorId(String subject) {
+        String doctorId = tokenService.extractSubject(subject);
+        try {
+            return Long.parseLong(doctorId);
+        } catch (Exception e) {
+            log.error(e.getMessage());
+            return null;
         }
     }
 }

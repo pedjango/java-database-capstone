@@ -38,14 +38,13 @@
                                 </h2>
 
                                 <div class="role-buttons">
-                                    <button id="adminBtn" class="dashboard-btn" onclick="selectRole('ADMIN')">
+                                    <button id="adminLogin" class="dashboard-btn" onclick="selectRole('ADMIN')">
                                         Admin
                                     </button>
-
-                                    <button id="doctorBtn" class="dashboard-btn" onclick="selectRole('DOCTOR')">
+                                    <button id="doctorLogin" class="dashboard-btn" onclick="selectRole('DOCTOR')">
                                         Doctor
                                     </button>
-                                    <button id="patientBtn" class="dashboard-btn" onclick="selectRole('PATIENT')">
+                                    <button id="patientLogin" class="dashboard-btn" onclick="selectRole('PATIENT')">
                                         Patient
                                     </button>
                                 </div>
@@ -65,7 +64,7 @@
             </div>
         </div>
 
-        <script type="module" src="./js/services/index.js" defer>
-        </script>
+        <script type="module" src="./js/services/index.js" defer></script>
+        <script type="module" src="./js/components/modals.js" defer></script>
     </body>
 </html>

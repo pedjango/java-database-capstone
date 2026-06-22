@@ -89,7 +89,7 @@ public class PatientService {
 
     public Patient getPatientDetails(String token) {
         try {
-            String email = tokenService.extractEmailFromToken(token);
+            String email = tokenService.extractSubject(token);
             return patientRepository.findByEmail(email);
         } catch (Exception e) {
             e.printStackTrace();

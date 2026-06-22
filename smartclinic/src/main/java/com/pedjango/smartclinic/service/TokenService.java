@@ -36,16 +36,16 @@ public class TokenService {
         return Keys.hmacShaKeyFor(secret.getBytes());
     }
 
-    public String generateToken(String email) {
+    public String generateToken(String subject) {
         return Jwts.builder()
-                .subject(email)
+                .subject(subject)
                 .issuedAt(new Date())
                 .expiration(new Date(System.currentTimeMillis() + 1000L * 60 * 60 * 24 * 7))
                 .signWith(getSigningKey())
                 .compact();
     }
 
-    public String extractEmail(String token) {
+    public String extractSubject(String token) {
         return Jwts.parser()
                 .verifyWith(getSigningKey())
                 .build()
@@ -56,7 +56,7 @@ public class TokenService {
 
     public boolean validateToken(String token,String user) {
         try {
-            String extracted = extractEmail(token);
+            String extracted = extractSubject(token);
             switch (user) {
                 case "admin" -> {
                     Admin admin = adminRepository.findByUsername(extracted);
@@ -70,24 +70,12 @@ public class TokenService {
                     Patient patient = patientRepository.findByEmail(extracted);
                     return patient != null;
                 }
+                default -> {
+                    return false;
+                }
             }
-
-            return false;
         } catch (Exception e) {
             return false;
         }
     }
-
-    public String extractEmailFromToken(String token) {
-        throw new UnsupportedOperationException("Unimplemented method 'extractEmailFromToken'");
-    }
-
-    public String generateToken(Object object, String string, String username) {
-        throw new UnsupportedOperationException("Unimplemented method 'generateToken'");
-    }
-
-    public Long extractDoctorIdFromToken(String token) {
-        throw new UnsupportedOperationException("Unimplemented method 'extractDoctorIdFromToken'");
-    }
 }
-

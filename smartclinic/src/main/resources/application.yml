@@ -34,8 +34,5 @@ spring:
     cache: false
     encoding: UTF-8
 
-api:
-  path: /api/
-
 jwt:
   secret: "f7a43f49c2f5617b4e9bf2a01d8c5e6f93a4d2b7c8e1f5a6d9b3c4e7f8a1b2c"

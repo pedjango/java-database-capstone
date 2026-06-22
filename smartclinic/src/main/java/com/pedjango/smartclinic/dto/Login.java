@@ -9,5 +9,6 @@ import java.io.Serializable;
 @NoArgsConstructor
 public class Login implements Serializable {
     private String email;
+    private String username;
     private String password;
 }

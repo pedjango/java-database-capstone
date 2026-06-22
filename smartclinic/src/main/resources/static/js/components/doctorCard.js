@@ -1,6 +1,6 @@
 import { getPatientData } from "../services/patientServices.js";
 import { deleteDoctor } from "../services/doctorServices.js";
-import { showBookingOverlay } from "../components/modals.js";
+import { openModal } from "../components/modals.js";
 
 export function createDoctorCard(doctor) {
   const card = document.createElement("div");
@@ -15,7 +15,7 @@ export function createDoctorCard(doctor) {
   name.textContent = doctor.name;
 
   const specialization = document.createElement("p");
-  specialization.textContent = `Specialty: ${doctor.specialization}`;
+  specialization.textContent = `Specialty: ${doctor.specialty}`;
 
   const email = document.createElement("p");
   email.textContent = `Email: ${doctor.email}`;
@@ -82,7 +82,7 @@ export function createDoctorCard(doctor) {
 
         const patientData = await getPatientData(token);
 
-        showBookingOverlay(e, doctor, patientData);
+        openModal(e, doctor, patientData);
       } catch (error) {
         console.error("Booking error:", error);
         alert("Unable to start booking process.");

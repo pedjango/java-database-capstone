@@ -49,8 +49,8 @@ function setupEventListeners() {
 }
 
 async function loadDoctorCards() {
-  const doctors = await getDoctors();
-  renderDoctorCards(doctors);
+  const response = await getDoctors();
+  renderDoctorCards(response.doctors);
 }
 
 function renderDoctorCards(doctors) {
@@ -85,13 +85,13 @@ async function filterDoctorsOnChange() {
   const specialty =
     document.getElementById("filterSpecialty")?.value || "";
 
-  const filteredDoctors = await filterDoctors(
+  const filteredDoctorsResponse = await filterDoctors(
     name,
     time,
     specialty
   );
 
-  renderDoctorCards(filteredDoctors);
+  renderDoctorCards(filteredDoctorsResponse.doctors);
 }
 
 window.adminAddDoctor = async function () {
