@@ -5,7 +5,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <title>Doctor Listings</title>
 
-        <link rel="icon" href="../assets/images/favicon.ico" />
+        <link rel="icon" href="../assets/images/logo/favicon.ico" />
         <link rel="stylesheet" href="../assets/css/adminDashboard.css" />
         <link rel="stylesheet" href="../assets/css/patientDashboard.css" />
         <link rel="stylesheet" href="../assets/css/header.css" />
@@ -23,9 +23,20 @@
                 <div id="header"></div>
 
                 <main class="main-content">
+                    <div style="display: flex; justify-content: flex-start; margin-bottom: 16px;">
+                        <button class="dashboard-btn"
+                                style="width: 160px;"
+                                onclick="window.location.href='/'">
+                            Home
+                        </button>
+                    </div>
                     <section class="dashboard-controls">
                         <div class="filter-section">
-                            <input type="text" id="searchBar" style="width: 100%" class="input-field" placeholder="Search by doctor name" />
+                            <input type="text"
+                                   id="searchBar"
+                                   style="width: 100%"
+                                   class="input-field"
+                                   placeholder="Search by doctor name" />
 
                             <select id="filterTime" class="select-dropdown">
                                 <option value="">All Time Slots</option>

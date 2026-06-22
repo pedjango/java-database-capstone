@@ -22,8 +22,7 @@ html, body {
 }
 
 .main-content {
-    flex: 1;
-    padding: 20px;
+    background-color: rgb(56 51 99 / 65%);
 }
 
 .card-actions {
@@ -131,4 +130,28 @@ html, body {
 
 .hidden {
     display: none;
+}
+
+.dashboard-btn,
+.button,
+.adminBtn {
+    border: none;
+    outline: none;
+
+    padding: 0.9rem 2rem;
+
+    border-radius: 10px;
+
+    background-color: #485276;
+    color: #FFFFFF;
+
+    font-size: 1rem;
+    font-weight: 600;
+
+    cursor: pointer;
+
+    transition:
+            background-color 0.3s ease,
+            transform 0.2s ease,
+            box-shadow 0.3s ease;
 }

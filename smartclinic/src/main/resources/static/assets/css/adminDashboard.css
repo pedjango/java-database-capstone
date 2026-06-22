@@ -38,6 +38,18 @@ html, body {
     margin-bottom: 2rem;
 }
 
+/*.doctor-listing-dashboard-controls {*/
+/*    display: flex;*/
+/*    flex-direction: row;*/
+/*    gap: 1rem;*/
+/*    margin-bottom: 2rem;*/
+/*}*/
+
+.doctor-listing-filter-section {
+    display: flex;
+    gap: 1rem;
+}
+
 .search-section {
     width: 100%;
 }
