@@ -13,9 +13,9 @@ public class TokenValidationService {
 
     public boolean validateToken(String token, String role) {
         String subject = tokenService.extractSubject(token);
-        if ("admin".equals(role) && "admin-token".equals(subject)) {
+        if ("admin".equals(role) && "admin".equals(subject)) {
             return true;
         }
-        return "doctor".equals(role) && "doctor-token".equals(subject);
+        return "doctor".equals(role) && "doctor".equals(subject);
     }
 }

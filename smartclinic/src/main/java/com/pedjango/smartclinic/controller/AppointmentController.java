@@ -37,7 +37,7 @@ public class AppointmentController {
             @PathVariable @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate date,
             @RequestParam(required = false) String patientName
     ) {
-        if (!service.validateToken(token, "doctor")) {
+        if (service.validateToken(token, "doctor")) {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Invalid or expired token.");
         }
 
@@ -52,7 +52,7 @@ public class AppointmentController {
 
     @PostMapping("/book/{token}")
     public ResponseEntity<?> bookAppointment(@PathVariable String token, @RequestBody Appointment appointment) {
-        if (!service.validateToken(token, "patient")) {
+        if (service.validateToken(token, "patient")) {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Invalid or expired token.");
         }
 
@@ -75,7 +75,7 @@ public class AppointmentController {
                                                @PathVariable Long appointmentId,
                                                @PathVariable Long patientId,
                                                @RequestBody Appointment updatedAppointment) {
-        if (!service.validateToken(token, "patient")) {
+        if (service.validateToken(token, "patient")) {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Invalid or expired token.");
         }
 
@@ -90,7 +90,7 @@ public class AppointmentController {
     public ResponseEntity<?> cancelAppointment(@PathVariable String token,
                                                @PathVariable Long appointmentId,
                                                @PathVariable Long patientId) {
-        if (!service.validateToken(token, "patient")) {
+        if (service.validateToken(token, "patient")) {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Invalid or expired token.");
         }
 

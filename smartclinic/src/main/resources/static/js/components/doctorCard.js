@@ -20,6 +20,15 @@ export function createDoctorCard(doctor) {
   const email = document.createElement("p");
   email.textContent = `Email: ${doctor.email}`;
 
+  const phone = document.createElement("p");
+  phone.textContent = `Phone Number: ${doctor.phone}`;
+
+  const clinicAddress = document.createElement("p");
+  clinicAddress.textContent = `Clinic Address: ${doctor.clinicAddress}`;
+
+  const yearsOfExperience = document.createElement("p");
+  yearsOfExperience.textContent = `Years of Experience: ${doctor.yearsOfExperience}`;
+
   const availability = document.createElement("p");
   availability.textContent = `Availability: ${
     Array.isArray(doctor.availableTimes)
@@ -30,6 +39,13 @@ export function createDoctorCard(doctor) {
   infoDiv.appendChild(name);
   infoDiv.appendChild(specialization);
   infoDiv.appendChild(email);
+  infoDiv.appendChild(phone);
+  if (doctor.clinicAddress) {
+    infoDiv.appendChild(clinicAddress);
+  }
+  if (doctor.yearsOfExperience) {
+    infoDiv.appendChild(yearsOfExperience);
+  }
   infoDiv.appendChild(availability);
 
   const actionsDiv = document.createElement("div");

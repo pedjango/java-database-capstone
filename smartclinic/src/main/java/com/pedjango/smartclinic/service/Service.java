@@ -43,10 +43,10 @@ public class Service {
 
     public boolean validateToken(String token, String role) {
         try {
-            return tokenService.validateToken(token, role);
+            return !tokenService.validateToken(token, role);
         } catch (Exception e) {
-            e.printStackTrace();
-            return false;
+            log.error(e.getMessage());
+            return true;
         }
     }
 
@@ -57,7 +57,7 @@ public class Service {
                 return ResponseEntity.status(HttpStatus.UNAUTHORIZED)
                         .body("Invalid username or password.");
             }
-            String token = tokenService.generateToken(admin.getUsername().concat("-token"));
+            String token = tokenService.generateToken(admin.getUsername());
             return ResponseEntity.ok(Map.of("token", token));
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)

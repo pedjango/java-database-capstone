@@ -1,4 +1,4 @@
-import { API_BASE_URL } from "../config/config.js";
+import {API_BASE_URL} from "../config/config.js";
 
 const DOCTOR_BASE_API = API_BASE_URL + "/doctor";
 
@@ -10,8 +10,7 @@ export async function getDoctors() {
       throw new Error("Failed to fetch doctors");
     }
 
-    const data = await response.json();
-    return data;
+    return await response.json();
   } catch (error) {
     console.error("Error fetching doctors:", error);
     return [];
@@ -20,7 +19,7 @@ export async function getDoctors() {
 
 export async function deleteDoctor(id, token) {
   try {
-    const response = await fetch(`${DOCTOR_BASE_API}/${id}`, {
+    const response = await fetch(`${DOCTOR_BASE_API}/delete/${id}`, {
       method: "DELETE",
       headers: {
         "Authorization": `Bearer ${token}`,

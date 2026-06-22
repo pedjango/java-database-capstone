@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -28,6 +29,8 @@ public class DoctorController {
 
     private final DoctorService doctorService;
     private final Service service;
+    private static final String ADMIN = "admin";
+    private static final String UNAUTHORIZED_ACCESS = "Unauthorized access.";
 
     public DoctorController(DoctorService doctorService, Service service) {
         this.doctorService = doctorService;
@@ -41,7 +44,7 @@ public class DoctorController {
             @PathVariable @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate date,
             @PathVariable String token
     ) {
-        if (!service.validateToken(token, user)) {
+        if (service.validateToken(token, user)) {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Invalid or expired token.");
         }
 
@@ -55,17 +58,31 @@ public class DoctorController {
         return ResponseEntity.ok(Map.of("doctors", doctors));
     }
 
-    @PostMapping("/register/{token}")
-    public ResponseEntity<?> saveDoctor(@RequestBody Doctor doctor, @PathVariable String token) {
-        if (!service.validateToken(token, "admin")) {
-            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Unauthorized access.");
+    @PostMapping("/register")
+    public ResponseEntity<?> saveDoctor(
+            @RequestBody Doctor doctor,
+            @RequestHeader("Authorization") String authorizationHeader) {
+        if (authorizationHeader == null || !authorizationHeader.startsWith("Bearer ")) {
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED)
+                    .body("Missing authorization token.");
+        }
+
+        String token = authorizationHeader.substring(7);
+
+        if (service.validateToken(token, ADMIN)) {
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED)
+                    .body(UNAUTHORIZED_ACCESS);
         }
 
         int result = doctorService.saveDoctor(doctor);
+
         return switch (result) {
-            case -1 -> ResponseEntity.status(HttpStatus.CONFLICT).body("Doctor with email already exists.");
-            case 1 -> ResponseEntity.status(HttpStatus.CREATED).body("Doctor registered successfully.");
-            default -> ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error while registering doctor.");
+            case -1 -> ResponseEntity.status(HttpStatus.CONFLICT)
+                    .body("Doctor with email already exists.");
+            case 1 -> ResponseEntity.status(HttpStatus.CREATED)
+                    .body("Doctor registered successfully.");
+            default -> ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                    .body("Error while registering doctor.");
         };
     }
 
@@ -75,12 +92,19 @@ public class DoctorController {
         return ResponseEntity.ok(Map.of("token", token));
     }
 
-    @PutMapping("/update/{token}/{doctorId}")
+    @PutMapping("/update/{doctorId}")
     public ResponseEntity<?> updateDoctor(@RequestBody Doctor updatedDoctor,
-                                          @PathVariable String token,
-                                          @PathVariable Long doctorId) {
-        if (!service.validateToken(token, "admin")) {
-            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Unauthorized access.");
+                                          @PathVariable Long doctorId,
+                                          @RequestHeader("Authorization") String authorizationHeader) {
+        if (authorizationHeader == null || !authorizationHeader.startsWith("Bearer ")) {
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED)
+                    .body("Missing authorization token.");
+        }
+
+        String token = authorizationHeader.substring(7);
+
+        if (service.validateToken(token, ADMIN)) {
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(UNAUTHORIZED_ACCESS);
         }
 
         int result = doctorService.updateDoctor(doctorId, updatedDoctor);
@@ -91,10 +115,18 @@ public class DoctorController {
         };
     }
 
-    @DeleteMapping("/delete/{token}/{doctorId}")
-    public ResponseEntity<?> deleteDoctor(@PathVariable String token, @PathVariable Long doctorId) {
-        if (!service.validateToken(token, "admin")) {
-            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Unauthorized access.");
+    @DeleteMapping("/delete/{doctorId}")
+    public ResponseEntity<?> deleteDoctor(@PathVariable Long doctorId,
+                                          @RequestHeader("Authorization") String authorizationHeader) {
+        if (authorizationHeader == null || !authorizationHeader.startsWith("Bearer ")) {
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED)
+                    .body("Missing authorization token.");
+        }
+
+        String token = authorizationHeader.substring(7);
+
+        if (service.validateToken(token, ADMIN)) {
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(UNAUTHORIZED_ACCESS);
         }
 
         int result = doctorService.deleteDoctor(doctorId);

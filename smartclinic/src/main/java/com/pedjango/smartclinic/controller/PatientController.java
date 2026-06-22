@@ -31,7 +31,7 @@ public class PatientController {
 
     @GetMapping("/me/{token}")
     public ResponseEntity<?> getPatient(@PathVariable String token) {
-        if (!service.validateToken(token, "patient")) {
+        if (service.validateToken(token, "patient")) {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Invalid or expired token.");
         }
 
@@ -66,7 +66,7 @@ public class PatientController {
     public ResponseEntity<?> getPatientAppointments(@PathVariable Long patientId,
                                                     @PathVariable String user,
                                                     @PathVariable String token) {
-        if (!service.validateToken(token, user)) {
+        if (service.validateToken(token, user)) {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Invalid or expired token.");
         }
 
@@ -78,7 +78,7 @@ public class PatientController {
     public ResponseEntity<?> filterPatientAppointment(@RequestParam(required = false) String condition,
                                                       @RequestParam(required = false) String name,
                                                       @RequestParam String token) {
-        if (!service.validateToken(token, "patient")) {
+        if (service.validateToken(token, "patient")) {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Invalid or expired token.");
         }
 

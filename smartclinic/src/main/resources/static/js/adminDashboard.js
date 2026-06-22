@@ -114,8 +114,11 @@ window.adminAddDoctor = async function () {
   const password =
     document.getElementById("doctorPassword")?.value;
 
-  const mobile =
-    document.getElementById("doctorMobile")?.value;
+  const phone =
+    document.getElementById("doctorPhone")?.value;
+
+  const clinicAddress =
+    document.getElementById("doctorClinicAddress")?.value;
 
   const availabilityCheckboxes =
     document.querySelectorAll(
@@ -131,7 +134,8 @@ window.adminAddDoctor = async function () {
     specialty,
     email,
     password,
-    mobile,
+    phone,
+    clinicAddress,
     availableTimes
   };
 

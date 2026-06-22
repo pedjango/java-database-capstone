@@ -54,7 +54,7 @@ public class TokenService {
                 .getSubject();
     }
 
-    public boolean validateToken(String token,String user) {
+    public boolean validateToken(String token, String user) {
         try {
             String extracted = extractSubject(token);
             switch (user) {
