@@ -1,4 +1,4 @@
-import { API_BASE_URL } from "../config/config.js";
+import {API_BASE_URL} from "../config/config.js";
 
 const PATIENT_API = API_BASE_URL + "/patient";
 
@@ -30,17 +30,13 @@ export async function patientSignup(data) {
 
 export async function patientLogin(data) {
   try {
-    console.log("Patient login payload:", data);
-
-    const response = await fetch(`${PATIENT_API}/login`, {
+    return await fetch(`${PATIENT_API}/login`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json"
       },
       body: JSON.stringify(data)
     });
-
-    return response;
   } catch (error) {
     console.error("Patient login error:", error);
     throw error;

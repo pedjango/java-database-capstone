@@ -2,6 +2,7 @@ function renderHeader() {
   const headerDiv = document.getElementById("header");
 
   if (!headerDiv) return;
+  headerDiv.classList.add("header");
 
   let headerContent = "";
 
@@ -26,7 +27,6 @@ function renderHeader() {
   if (role === "admin") {
     headerContent += `
             <nav class="header-nav">
-                <button id="addDocBtn" class="adminBtn">Add Doctor</button>
                 <a href="#" id="logoutBtn">Logout</a>
             </nav>
         `;
@@ -76,14 +76,6 @@ function renderHeader() {
 
 
 function attachHeaderButtonListeners() {
-
-  const addDocBtn = document.getElementById("addDocBtn");
-  if (addDocBtn) {
-    addDocBtn.addEventListener("click", () => {
-      openModal("addDoctor");
-    });
-  }
-
   const logoutBtn = document.getElementById("logoutBtn");
   if (logoutBtn) {
     logoutBtn.addEventListener("click", (e) => {

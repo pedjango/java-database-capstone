@@ -43,8 +43,6 @@ window.adminLoginHandler = async function () {
       body: JSON.stringify(admin)
     });
 
-    console.log(response);
-
     if (response.ok) {
       const data = await response.json();
       localStorage.setItem("token", data.token);
@@ -81,7 +79,7 @@ window.doctorLoginHandler = async function () {
       const data = await response.json();
       localStorage.setItem("token", data.token);
       selectRole("doctor");
-      window.location.href = `${DOCTOR_BASE_API}/doctorDashboard/${data.token}`;
+      window.location.href = `/doctorDashboard/${data.token}`;
     } else {
       alert("Invalid credentials!");
     }
