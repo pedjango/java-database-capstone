@@ -10,8 +10,6 @@
         <link rel="stylesheet" href="./assets/css/header.css" />
         <link rel="stylesheet" href="./assets/css/footer.css" />
 
-        <script src="./js/util.js" defer></script>
-        <script src="./js/render.js" defer></script>
         <script src="./js/components/header.js" defer></script>
         <script src="./js/components/footer.js" defer></script>
     </head>
@@ -47,6 +45,24 @@
                                     </button>
                                     <button id="patientLogin" class="dashboard-btn" onclick="selectRole('PATIENT')">
                                         Patient
+                                    </button>
+                                </div>
+                            </div>
+
+                            <div class="services-preview">
+                                <h3 class="section-title">
+                                    Explore our services & doctors
+                                </h3>
+                                <p class="section-description">
+                                    Browse available doctors, specialties and clinic services before logging in.
+                                </p>
+                                <div class="doctors-preview" id="doctorsPreview"></div>
+                                <div class="services-actions">
+                                    <button
+                                            style="margin-top: 16px;"
+                                            class="dashboard-btn"
+                                            onclick="window.location.href='/pages/doctorListings.html'">
+                                        View All Doctors
                                     </button>
                                 </div>
                             </div>

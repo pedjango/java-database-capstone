@@ -38,7 +38,7 @@ document.addEventListener("DOMContentLoaded", () => {
 });
 
 document.addEventListener("DOMContentLoaded", () => {
-  const loginBtn = document.getElementById("patientLogin");
+  const loginBtn = document.getElementById("patientLoginBtn");
   if (loginBtn) {
     loginBtn.addEventListener("click", () => openModal("patientLogin"));
   }
@@ -91,55 +91,3 @@ export function renderDoctorCards(doctors) {
     contentDiv.appendChild(card);
   });
 }
-
-window.signupPatient = async function () {
-  try {
-    const name = document.getElementById("signupName")?.value;
-    const email = document.getElementById("signupEmail")?.value;
-    const password = document.getElementById("signupPassword")?.value;
-    const phone = document.getElementById("signupPhone")?.value;
-    const address = document.getElementById("signupAddress")?.value;
-
-    const response = await patientSignup({
-      name,
-      email,
-      password,
-      phone,
-      address
-    });
-
-    if (response?.success) {
-      alert(response.message || "Signup successful!");
-      window.location.reload();
-    } else {
-      alert(response?.message || "Signup failed!");
-    }
-  } catch (error) {
-    console.error("Signup error:", error);
-    alert("Unexpected error during signup.");
-  }
-};
-
-window.loginPatient = async function () {
-  try {
-    const email = document.getElementById("loginEmail")?.value;
-    const password = document.getElementById("loginPassword")?.value;
-
-    const response = await patientLogin({
-      email,
-      password
-    });
-
-    const data = await response.json();
-
-    if (response.ok) {
-      localStorage.setItem("token", data.token);
-      window.location.href = "/loggedPatientDashboard.html";
-    } else {
-      alert(data?.message || "Invalid credentials!");
-    }
-  } catch (error) {
-    console.error("Login error:", error);
-    alert("Unexpected error during login.");
-  }
-};

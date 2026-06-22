@@ -7,12 +7,13 @@ import com.pedjango.smartclinic.models.Patient;
 import com.pedjango.smartclinic.repository.AppointmentRepository;
 import com.pedjango.smartclinic.repository.PatientRepository;
 import jakarta.transaction.Transactional;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.stream.Collectors;
 
-@SuppressWarnings("unused")
+@Slf4j
 @Service
 public class PatientService {
 
@@ -33,7 +34,7 @@ public class PatientService {
             patientRepository.save(patient);
             return 1;
         } catch (Exception e) {
-            e.printStackTrace();
+            log.error(e.getMessage());
             return 0;
         }
     }
@@ -42,9 +43,9 @@ public class PatientService {
     public List<AppointmentDTO> getPatientAppointment(Long patientId) {
         try {
             List<Appointment> appointments = appointmentRepository.findByPatientId(patientId);
-            return appointments.stream().map(this::convertToDTO).collect(Collectors.toList());
+            return appointments.stream().map(this::convertToDTO).toList();
         } catch (Exception e) {
-            e.printStackTrace();
+            log.error(e.getMessage());
             return List.of();
         }
     }
@@ -55,9 +56,9 @@ public class PatientService {
             int status = condition.equalsIgnoreCase("past") ? 1 : condition.equalsIgnoreCase("future") ? 0 : -1;
             if (status == -1) throw new IllegalArgumentException("Invalid condition: must be 'past' or 'future'");
             List<Appointment> list = appointmentRepository.findByPatient_IdAndStatusOrderByAppointmentTimeAsc(patientId, status);
-            return list.stream().map(this::convertToDTO).collect(Collectors.toList());
+            return list.stream().map(this::convertToDTO).toList();
         } catch (Exception e) {
-            e.printStackTrace();
+            log.error(e.getMessage());
             return List.of();
         }
     }
@@ -66,9 +67,9 @@ public class PatientService {
     public List<AppointmentDTO> filterByDoctor(String doctorName, Long patientId) {
         try {
             List<Appointment> list = appointmentRepository.filterByDoctorNameAndPatientId(doctorName, patientId);
-            return list.stream().map(this::convertToDTO).collect(Collectors.toList());
+            return list.stream().map(this::convertToDTO).toList();
         } catch (Exception e) {
-            e.printStackTrace();
+            log.error(e.getMessage());
             return List.of();
         }
     }
@@ -80,9 +81,9 @@ public class PatientService {
             if (status == -1) throw new IllegalArgumentException("Invalid condition: must be 'past' or 'future'");
 
             List<Appointment> list = appointmentRepository.filterByDoctorNameAndPatientIdAndStatus(doctorName, patientId, status);
-            return list.stream().map(this::convertToDTO).collect(Collectors.toList());
+            return list.stream().map(this::convertToDTO).toList();
         } catch (Exception e) {
-            e.printStackTrace();
+            log.error(e.getMessage());
             return List.of();
         }
     }
@@ -92,7 +93,7 @@ public class PatientService {
             String email = tokenService.extractSubject(token);
             return patientRepository.findByEmail(email);
         } catch (Exception e) {
-            e.printStackTrace();
+            log.error(e.getMessage());
             return null;
         }
     }

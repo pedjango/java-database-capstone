@@ -2,47 +2,6 @@ import {API_BASE_URL} from "../config/config.js";
 
 const PATIENT_API = API_BASE_URL + "/patient";
 
-export async function patientSignup(data) {
-  try {
-    const response = await fetch(`${PATIENT_API}/signup`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json"
-      },
-      body: JSON.stringify(data)
-    });
-
-    const result = await response.json();
-
-    return {
-      success: response.ok,
-      message: result.message || "Signup successful"
-    };
-  } catch (error) {
-    console.error("Patient signup error:", error);
-
-    return {
-      success: false,
-      message: "Unable to complete signup"
-    };
-  }
-}
-
-export async function patientLogin(data) {
-  try {
-    return await fetch(`${PATIENT_API}/login`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json"
-      },
-      body: JSON.stringify(data)
-    });
-  } catch (error) {
-    console.error("Patient login error:", error);
-    throw error;
-  }
-}
-
 export async function getPatientData(token) {
   try {
     const response = await fetch(`${PATIENT_API}/me`, {

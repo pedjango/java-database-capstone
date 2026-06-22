@@ -1,21 +1,22 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en">
     <head>
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <title>Admin Dashboard</title>
+        <title>Doctor Listings</title>
 
-        <link rel="icon" type="image/png" th:href="@{/assets/images/favicon.png}" />
-        <link rel="stylesheet" th:href="@{/assets/css/adminDashboard.css}" />
-        <link rel="stylesheet" th:href="@{/assets/css/header.css}" />
-        <link rel="stylesheet" th:href="@{/assets/css/footer.css}" />
+        <link rel="icon" href="../assets/images/favicon.ico" />
+        <link rel="stylesheet" href="../assets/css/adminDashboard.css" />
+        <link rel="stylesheet" href="../assets/css/patientDashboard.css" />
+        <link rel="stylesheet" href="../assets/css/header.css" />
+        <link rel="stylesheet" href="../assets/css/footer.css" />
 
-        <script th:src="@{/js/components/header.js}" defer></script>
-        <script th:src="@{/js/components/footer.js}" defer></script>
-        <script th:src="@{/js/components/doctorCard.js}" defer th:type="module"></script>
-        <script th:src="@{/js/adminDashboard.js}" defer th:type="module"></script>
+        <script src="../js/components/header.js" defer></script>
+        <script src="../js/components/footer.js" defer></script>
+        <script src="../js/components/doctorCard.js" defer type="module"></script>
+        <script src="../js/doctorListings.js" defer type="module"></script>
+        <script type="module" src="../js/components/modals.js"></script>
     </head>
-
     <body>
         <div class="container">
             <div class="wrapper">
@@ -23,11 +24,9 @@
 
                 <main class="main-content">
                     <section class="dashboard-controls">
-                        <div class="search-section">
-                            <input type="text" id="searchBar" class="input-field" placeholder="Search by doctor name" />
-                        </div>
-
                         <div class="filter-section">
+                            <input type="text" id="searchBar" style="width: 100%" class="input-field" placeholder="Search by doctor name" />
+
                             <select id="filterTime" class="select-dropdown">
                                 <option value="">All Time Slots</option>
                                 <option value="AM">Morning (AM)</option>
@@ -51,8 +50,6 @@
                                 <option value="Gastroenterologist">Gastroenterologist</option>
                                 <option value="General Physician">General Physician</option>
                             </select>
-
-                            <button id="addDocBtn" class="adminBtn">Add Doctor</button>
                         </div>
                     </section>
 
@@ -62,13 +59,6 @@
                 </main>
 
                 <div id="footer"></div>
-            </div>
-        </div>
-
-        <div id="modal" class="modal">
-            <div class="modal-content">
-                <span id="closeModal" class="close">&times;</span>
-                <div id="modal-body"></div>
             </div>
         </div>
     </body>

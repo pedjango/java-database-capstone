@@ -10,7 +10,6 @@ import java.time.LocalTime;
 import java.util.*;
 import java.util.stream.Collectors;
 
-@SuppressWarnings("unused")
 @Service
 public class DoctorService {
 
@@ -26,7 +25,6 @@ public class DoctorService {
         this.tokenService = tokenService;
     }
 
-    @SuppressWarnings("unlikely-arg-type")
     @Transactional
     public List<String> getDoctorAvailability(Long doctorId, Date date) {
         Optional<Doctor> optionalDoctor = doctorRepository.findById(doctorId);

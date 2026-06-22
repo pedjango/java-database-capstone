@@ -47,9 +47,11 @@ export function createDoctorCard(doctor) {
     infoDiv.appendChild(yearsOfExperience);
   }
   infoDiv.appendChild(availability);
+  card.appendChild(infoDiv);
 
   const actionsDiv = document.createElement("div");
   actionsDiv.classList.add("card-actions");
+  console.log(role);
 
   if (role === "admin") {
     const removeBtn = document.createElement("button");
@@ -75,6 +77,7 @@ export function createDoctorCard(doctor) {
     });
 
     actionsDiv.appendChild(removeBtn);
+    card.appendChild(actionsDiv);
   }
 
   else if (role === "patient") {
@@ -86,6 +89,7 @@ export function createDoctorCard(doctor) {
     });
 
     actionsDiv.appendChild(bookNow);
+    card.appendChild(actionsDiv);
   }
 
   else if (role === "loggedPatient") {
@@ -106,10 +110,8 @@ export function createDoctorCard(doctor) {
     });
 
     actionsDiv.appendChild(bookNow);
+    card.appendChild(actionsDiv);
   }
-
-  card.appendChild(infoDiv);
-  card.appendChild(actionsDiv);
 
   return card;
 }

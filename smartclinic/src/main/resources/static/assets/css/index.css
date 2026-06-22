@@ -34,7 +34,7 @@ body {
     align-items: center;
     justify-content: center;
     padding: 3rem 2rem;
-    background-color: rgba(187, 216, 253, 0.84);
+    background-color: rgb(56 51 99 / 65%);
 }
 
 .hero-section {
@@ -94,7 +94,7 @@ body {
 
     border-radius: 10px;
 
-    background-color: #0284c7;
+    background-color: #485276;
     color: #FFFFFF;
 
     font-size: 1rem;
@@ -111,10 +111,8 @@ body {
 .dashboard-btn:hover,
 .button:hover,
 .adminBtn:hover {
-    background-color: #0369A1;
+    background-color: rgba(72, 82, 118, 0.73);
     transform: translateY(-2px);
-
-    box-shadow: 0 8px 20px rgba(2, 132, 199, 0.30);
 }
 
 .dashboard-btn:active,
@@ -317,4 +315,38 @@ textarea:focus {
         flex-wrap: wrap;
         justify-content: center;
     }
+}
+
+.services-preview {
+    margin-top: 40px;
+    text-align: center;
+}
+
+.section-title {
+    font-size: 22px;
+    margin-bottom: 10px;
+}
+
+.section-description {
+    color: #FFFFFF;
+    margin-bottom: 20px;
+}
+
+.services-actions {
+    display: flex;
+    justify-content: center;
+}
+
+.doctors-preview {
+    display: flex;
+    gap: 15px;
+    justify-content: center;
+    margin-top: 20px;
+}
+
+.doctor-card-mini {
+    padding: 16px;
+    border-radius: 8px;
+    width: 180px;
+    background: #0F172A;
 }

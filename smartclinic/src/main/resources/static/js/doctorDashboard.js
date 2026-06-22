@@ -94,8 +94,5 @@ async function loadAppointments() {
 
 // Initial page load
 document.addEventListener("DOMContentLoaded", () => {
-  if (typeof renderContent === "function") {
-    renderContent();
-  }
   loadAppointments();
 });

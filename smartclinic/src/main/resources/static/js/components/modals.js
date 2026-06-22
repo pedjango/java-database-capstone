@@ -42,23 +42,25 @@ export function openModal(type) {
       `;
   } else if (type === 'patientLogin') {
     modalContent = `
-        <h2>Patient Login</h2>
-        <input type="text" id="email" placeholder="Email" class="input-field">
-        <input type="password" id="password" placeholder="Password" class="input-field">
-        <button class="dashboard-btn" id="loginBtn">Login</button>
+        <h2 style="margin-bottom: 0.85rem;">Patient Login</h2>
+        <input type="text" id="patientEmail" placeholder="Email" class="input-field">
+        <input type="password" id="patientPassword" placeholder="Password" class="input-field">
+        <button class="dashboard-btn" id="patientLoginBtn">Login</button>
       `;
   }
   else if (type === "patientSignup") {
     modalContent = `
       <h2 style="margin-bottom: 0.85rem;">Patient Signup</h2>
-      <input type="text" id="name" placeholder="Name" class="input-field">
-      <input type="email" id="email" placeholder="Email" class="input-field">
-      <input type="password" id="password" placeholder="Password" class="input-field">
-      <input type="text" id="phone" placeholder="Phone" class="input-field">
-      <input type="text" id="address" placeholder="Address" class="input-field">
+      <input type="text" id="signupName" placeholder="Name" class="input-field">
+      <input type="email" id="signupEmail" placeholder="Email" class="input-field">
+      <input type="password" id="signupPassword" placeholder="Password" class="input-field">
+      <input type="text" id="signupPhone" placeholder="Phone" class="input-field">
+      <input type="text" id="signupEmergencyContact" placeholder="Emergency Contact" class="input-field">
+      <input type="text" id="signupAddress" placeholder="Address" class="input-field">
+      <input type="datetime-local" id="signupDateOfBirth" placeholder="Date of Birth" class="input-field">
+      <input type="text" id="signupInsuranceProvider" placeholder="Insurance Provider" class="input-field">
       <button class="dashboard-btn" id="signupBtn">Signup</button>
     `;
-
   } else if (type === 'adminLogin') {
     modalContent = `
         <h2 style="margin-bottom: 0.85rem;">Admin Login</h2>
@@ -83,11 +85,11 @@ export function openModal(type) {
   };
 
   if (type === "patientSignup") {
-    document.getElementById("signupBtn").addEventListener("click", signupPatient);
+    document.getElementById("signupBtn").addEventListener("click", patientSignupHandler);
   }
 
   if (type === "patientLogin") {
-    document.getElementById("loginBtn").addEventListener("click", loginPatient);
+    document.getElementById("patientLoginBtn").addEventListener("click", patientLoginHandler);
   }
 
   if (type === 'addDoctor') {

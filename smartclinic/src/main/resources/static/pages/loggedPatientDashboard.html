@@ -1,10 +1,70 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Patient Dashboard</title>
 
-</body>
+        <link rel="icon" href="../assets/images/favicon.ico" />
+        <link rel="stylesheet" href="../assets/css/adminDashboard.css" />
+        <link rel="stylesheet" href="../assets/css/patientDashboard.css" />
+        <link rel="stylesheet" href="../assets/css/header.css" />
+        <link rel="stylesheet" href="../assets/css/footer.css" />
+
+        <script src="../js/components/header.js" defer></script>
+        <script src="../js/components/footer.js" defer></script>
+        <script type="module" src="../js/components/modals.js"></script>
+    </head>
+    <body onload="renderContent()">
+        <div class="container">
+            <div class="wrapper">
+                <div id="header"></div>
+
+                <main class="main-content">
+                    <div class="search-section">
+                        <input type="text" id="searchBar" class="searchBar" placeholder="Search doctors..."/>
+                    </div>
+
+                    <div class="filter-wrapper">
+                        <select class="filter-select" id="filterTime">
+                            <option value="">All Time Slots</option>
+                            <option value="AM">Morning (AM)</option>
+                            <option value="PM">Afternoon (PM)</option>
+                        </select>
+
+                        <select class="filter-select" id="filterSpecialty">
+                            <option value="">All Specialties</option>
+                            <option value="Cardiologist">Cardiologist</option>
+                            <option value="Dermatologist">Dermatologist</option>
+                            <option value="Neurologist">Neurologist</option>
+                            <option value="Orthopedist">Orthopedist</option>
+                            <option value="Pediatrician">Pediatrician</option>
+                            <option value="Gynecologist">Gynecologist</option>
+                            <option value="Psychiatrist">Psychiatrist</option>
+                            <option value="Dentist">Dentist</option>
+                            <option value="Ophthalmologist">Ophthalmologist</option>
+                            <option value="ENT">ENT Specialist</option>
+                            <option value="Urologist">Urologist</option>
+                            <option value="Oncologist">Oncologist</option>
+                            <option value="Gastroenterologist">Gastroenterologist</option>
+                            <option value="General Physician">General Physician</option>
+                        </select>
+                    </div>
+
+                    <div id="content"></div>
+                </main>
+
+                <div id="footer"></div>
+            </div>
+        </div>
+
+        <div id="modal" class="modal">
+            <div class="modal-content">
+                <span class="close" id="closeModal">&times;</span>
+                <div id="modal-body"></div>
+            </div>
+        </div>
+
+        <script type="module" src="../js/patientDashboard.js" defer></script>
+    </body>
 </html>

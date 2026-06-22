@@ -44,8 +44,7 @@ function renderHeader() {
   else if (role === "patient") {
     headerContent += `
             <nav class="header-nav">
-                <a href="/login">Login</a>
-                <a href="/signup">Sign Up</a>
+                <a href="#" id="patientSignup">Sign Up</a>
             </nav>
         `;
   }
@@ -63,8 +62,7 @@ function renderHeader() {
   else {
     headerContent += `
             <nav class="header-nav">
-                <a href="/login">Login</a>
-                <a href="/signup">Sign Up</a>
+                <a href="#" id="patientSignup">Sign Up</a>
             </nav>
         `;
   }
