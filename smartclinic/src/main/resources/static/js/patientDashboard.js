@@ -1,7 +1,6 @@
 import { createDoctorCard } from "./components/doctorCard.js";
 import { openModal } from "./components/modals.js";
 import { getDoctors, filterDoctors } from "./services/doctorServices.js";
-import { patientLogin, patientSignup } from "./services/patientServices.js";
 
 const contentDiv = document.getElementById("content");
 

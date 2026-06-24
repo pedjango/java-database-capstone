@@ -242,11 +242,12 @@ textarea:focus {
     text-decoration: none;
     color: #CBD5E1;
     font-size: 0.85rem;
-    transition: color 0.3s ease;
+    transition: color 300ms ease-in-out, font-weight 300ms ease;
 }
 
 .footer a:hover {
-    color: #38BDF8;
+    color: #FFFFFF;
+    font-weight: 500;
 }
 
 @media (max-width: 768px) {

@@ -59,7 +59,7 @@ export function openModal(type) {
       <input type="text" id="signupAddress" placeholder="Address" class="input-field">
       <input type="datetime-local" id="signupDateOfBirth" placeholder="Date of Birth" class="input-field">
       <input type="text" id="signupInsuranceProvider" placeholder="Insurance Provider" class="input-field">
-      <button class="dashboard-btn" id="signupBtn">Signup</button>
+      <button class="dashboard-btn" id="signupBtn">Sign Up</button>
     `;
   } else if (type === 'adminLogin') {
     modalContent = `

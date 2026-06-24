@@ -24,11 +24,12 @@
 
 .header-nav a {
     text-decoration: none;
-    color: #FFFFFF;
+    color: #CBD5E1;
     font-weight: 500;
-    transition: color 0.3s ease;
+    transition: color 300ms ease-in-out, font-weight 300ms ease;;
 }
 
 .header-nav a:hover {
-    color: #38BDF8;
+    color: #FFFFFF;
+    font-weight: 500;
 }
