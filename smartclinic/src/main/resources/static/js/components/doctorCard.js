@@ -51,7 +51,6 @@ export function createDoctorCard(doctor) {
 
   const actionsDiv = document.createElement("div");
   actionsDiv.classList.add("card-actions");
-  console.log(role);
 
   if (role === "admin") {
     const removeBtn = document.createElement("button");
