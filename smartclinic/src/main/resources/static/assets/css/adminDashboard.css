@@ -44,6 +44,25 @@ html, body {
     justify-content: space-between;
 }
 
+.card-actions {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 8px;
+}
+
+.card-actions .dashboard-btn,
+.card-actions .dashboard-btn-secondary {
+    margin: 0 8px;
+    width: 100%;
+    height: 36px;
+    padding: 0;
+}
+
+.card-actions .dashboard-btn:hover,
+.card-actions .dashboard-btn-secondary:hover {
+    transform: none;
+}
+
 .btn-container .dashboard-btn,
 .btn-container .dashboard-btn-secondary {
     width: 100%;
@@ -75,7 +94,6 @@ html, body {
 
 .dashboard-btn-secondary {
     border: 1px solid #485276;
-    /*outline: none;*/
     padding: 0.9rem 2rem;
     border-radius: 10px;
     background-color: #FFFFFF;

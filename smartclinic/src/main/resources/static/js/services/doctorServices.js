@@ -27,11 +27,13 @@ export async function deleteDoctor(id, token) {
       }
     });
 
-    const data = await response.json();
+    if (!response.ok) {
+      throw new Error("Failed to delete doctor");
+    }
 
     return {
       success: response.ok,
-      message: data.message || "Doctor deleted successfully"
+      message: response.message || "Doctor deleted successfully"
     };
   } catch (error) {
     console.error("Error deleting doctor:", error);
@@ -54,12 +56,13 @@ export async function saveDoctor(doctor, token) {
       body: JSON.stringify(doctor)
     });
 
-    const data = await response.json();
+    if (!response.ok) {
+      throw new Error("Failed to create doctor");
+    }
 
     return {
       success: response.ok,
-      message: data.message || "Doctor saved successfully",
-      data
+      message: response.message || "Doctor saved successfully",
     };
   } catch (error) {
     console.error("Error saving doctor:", error);

@@ -55,6 +55,11 @@ export function createDoctorCard(doctor) {
   if (role === "admin") {
     const removeBtn = document.createElement("button");
     removeBtn.textContent = "Delete";
+    removeBtn.classList = "dashboard-btn-secondary";
+
+    const editBtn = document.createElement("button");
+    editBtn.textContent = "Edit";
+    editBtn.classList = "dashboard-btn";
 
     removeBtn.addEventListener("click", async () => {
       const confirmDelete = confirm(
@@ -75,7 +80,21 @@ export function createDoctorCard(doctor) {
       }
     });
 
+    editBtn.addEventListener("click", async () => {
+      try {
+        const token = localStorage.getItem("token");
+
+        // TODO: Edit doctor logic
+        // await deleteDoctor(doctor.id, token);
+        // card.remove();
+      } catch (error) {
+        console.error("Failed to edit doctor:", error);
+        alert("Error editing doctor.");
+      }
+    });
+
     actionsDiv.appendChild(removeBtn);
+    actionsDiv.appendChild(editBtn);
     card.appendChild(actionsDiv);
   }
 
