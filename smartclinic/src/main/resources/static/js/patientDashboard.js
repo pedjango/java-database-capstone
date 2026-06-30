@@ -32,14 +32,14 @@ document.addEventListener("DOMContentLoaded", () => {
 document.addEventListener("DOMContentLoaded", () => {
   const signupBtn = document.getElementById("patientSignup");
   if (signupBtn) {
-    signupBtn.addEventListener("click", () => openModal("patientSignup"));
+    signupBtn.addEventListener("click", () => openModal("patientSignup", null));
   }
 });
 
 document.addEventListener("DOMContentLoaded", () => {
   const loginBtn = document.getElementById("patientLoginBtn");
   if (loginBtn) {
-    loginBtn.addEventListener("click", () => openModal("patientLogin"));
+    loginBtn.addEventListener("click", () => openModal("patientLogin", null));
   }
 });
 

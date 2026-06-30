@@ -1,4 +1,4 @@
-export function openModal(type) {
+export function openModal(type, object) {
   let modalContent = '';
   if (type === 'addDoctor') {
     modalContent = `
@@ -69,6 +69,130 @@ export function openModal(type) {
           <button class="dashboard-btn" id="saveDoctorBtn">Save</button>
         </div>
       `;
+  } else if (type === "editDoctor") {
+    modalContent = `
+      <h2 style="margin-bottom: 0.85rem;">Edit Doctor</h2>
+
+      <input
+        type="text"
+        id="doctorName"
+        placeholder="Doctor Name"
+        class="input-field"
+        value="${object.name ?? ""}"
+      >
+
+      <select id="doctorSpecialty" class="input-field select-dropdown">
+          <option value="">Specialization</option>
+          <option value="Cardiologist">Cardiologist</option>
+          <option value="Dermatologist">Dermatologist</option>
+          <option value="Neurologist">Neurologist</option>
+          <option value="Orthopedist">Orthopedist</option>
+          <option value="Pediatrician">Pediatrician</option>
+          <option value="Gynecologist">Gynecologist</option>
+          <option value="Psychiatrist">Psychiatrist</option>
+          <option value="Dentist">Dentist</option>
+          <option value="Ophthalmologist">Ophthalmologist</option>
+          <option value="ENT">ENT Specialist</option>
+          <option value="Urologist">Urologist</option>
+          <option value="Oncologist">Oncologist</option>
+          <option value="Gastroenterologist">Gastroenterologist</option>
+          <option value="General Physician">General Physician</option>
+      </select>
+
+      <input
+        type="email"
+        id="doctorEmail"
+        placeholder="Email"
+        class="input-field"
+        value="${object.email ?? ""}"
+      >
+
+      <input
+        type="password"
+        id="doctorPassword"
+        placeholder="Leave empty to keep current password"
+        class="input-field"
+      >
+
+      <input
+        type="text"
+        id="doctorPhone"
+        placeholder="Phone Number"
+        class="input-field"
+        value="${object.phone ?? ""}"
+      >
+
+      <input
+        type="text"
+        id="doctorClinicAddress"
+        placeholder="Clinic Address"
+        class="input-field"
+        value="${object.clinicAddress ?? ""}"
+      >
+
+      <input
+        type="number"
+        id="doctorYearsOfExperience"
+        placeholder="Years of Experience"
+        class="input-field"
+        value="${object.yearsOfExperience ?? ""}"
+      >
+
+      <label class="availabilityLabel">
+          Select Availability
+      </label>
+
+      <div class="availability-container">
+          <div class="availability-grid">
+              ${
+            [
+              "09:00-10:00",
+              "10:00-11:00",
+              "11:00-12:00",
+              "12:00-13:00",
+              "13:00-14:00",
+              "14:00-15:00",
+              "15:00-16:00",
+              "16:00-17:00"
+            ]
+              .map(
+                (slot) => `
+                      <label class="time-slot">
+                          <input
+                              type="checkbox"
+                              name="availability"
+                              value="${slot}"
+                              ${
+                  object.availableTimes?.includes(slot)
+                    ? "checked"
+                    : ""
+                }
+                          >
+                          <span>${formatTimeSlot(slot)}</span>
+                      </label>
+                    `
+              )
+              .join("")
+          }
+          </div>
+      </div>
+
+      <div class="btn-container">
+          <button
+              class="dashboard-btn-secondary"
+              id="closeDoctorModal"
+          >
+              Cancel
+          </button>
+
+          <button
+              class="dashboard-btn"
+              id="updateDoctorBtn"
+          >
+              Update
+          </button>
+      </div>
+  `;
   } else if (type === 'patientLogin') {
     modalContent = `
         <h2 style="margin-bottom: 0.85rem;">Patient Login</h2>
@@ -108,6 +232,21 @@ export function openModal(type) {
 
   document.getElementById('modal-body').innerHTML = modalContent;
   document.getElementById('modal').style.display = 'block';
+  if (type === "editDoctor") {
+    document.getElementById("doctorSpecialty").value =
+      object.specialty;
+
+    document.getElementById("closeDoctorModal").onclick = () => {
+      document.getElementById("modal").style.display = "none";
+    };
+
+    document.getElementById("updateDoctorBtn")
+      .addEventListener("click", () => {
+        // TODO: Trigger update
+        const updateDoctor = getDoctorFormData();
+        console.log(updateDoctor);
+      });
+  }
 
   document.getElementById('closeModal').onclick = () => {
     document.getElementById('modal').style.display = 'none';
@@ -135,4 +274,75 @@ export function openModal(type) {
   if (type === 'doctorLogin') {
     document.getElementById('doctorLoginBtn').addEventListener('click', doctorLoginHandler);
   }
+}
+
+function formatTimeSlot(slot) {
+  const [start, end] = slot.split("-");
+
+  const format = (time) => {
+    const [hour, minute] = time.split(":");
+
+    const h = Number(hour);
+    const suffix = h >= 12 ? "PM" : "AM";
+    const displayHour =
+      h === 0 ? 12 :
+        h > 12 ? h - 12 :
+          h;
+
+    return `${displayHour}:${minute} ${suffix}`;
+  };
+
+  return `${format(start)} - ${format(end)}`;
+}
+
+function getDoctorFormData() {
+  const name =
+    document.getElementById("doctorName")?.value.trim();
+
+  const specialty =
+    document.getElementById("doctorSpecialty")?.value;
+
+  const email =
+    document.getElementById("doctorEmail")?.value.trim();
+
+  const password =
+    document.getElementById("doctorPassword")?.value;
+
+  const phone =
+    document.getElementById("doctorPhone")?.value.trim();
+
+  const clinicAddress =
+    document.getElementById("doctorClinicAddress")?.value.trim();
+
+  const yearsOfExperience =
+    document.getElementById("doctorYearsOfExperience")?.value;
+
+  const availabilityCheckboxes =
+    document.querySelectorAll(
+      'input[name="availability"]:checked'
+    );
+
+  const availableTimes =
+    Array.from(availabilityCheckboxes)
+      .map((checkbox) => checkbox.value);
+
+  const doctor = {
+    name,
+    specialty,
+    email,
+    phone,
+    clinicAddress:
+      clinicAddress || null,
+    yearsOfExperience:
+      yearsOfExperience
+        ? Number(yearsOfExperience)
+        : null,
+    availableTimes
+  };
+
+  if (password?.trim()) {
+    doctor.password = password;
+  }
+
+  return doctor;
 }

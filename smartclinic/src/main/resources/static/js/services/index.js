@@ -17,25 +17,25 @@ window.onload = function () {
 
   if (adminBtn) {
     adminBtn.addEventListener("click", () => {
-      openModal("adminLogin");
+      openModal("adminLogin", null);
     });
   }
 
   if (doctorBtn) {
     doctorBtn.addEventListener("click", () => {
-      openModal("doctorLogin");
+      openModal("doctorLogin", null);
     });
   }
 
   if (patientBtn) {
     patientBtn.addEventListener("click", () => {
-      openModal("patientLogin");
+      openModal("patientLogin", null);
     });
   }
 
   if (patientSignupBtn) {
     patientSignupBtn.addEventListener("click", () => {
-      openModal("patientSignup");
+      openModal("patientSignup", null);
     });
   }
 };

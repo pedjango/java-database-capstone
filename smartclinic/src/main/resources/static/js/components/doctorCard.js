@@ -82,11 +82,7 @@ export function createDoctorCard(doctor) {
 
     editBtn.addEventListener("click", async () => {
       try {
-        const token = localStorage.getItem("token");
-
-        // TODO: Edit doctor logic
-        // await deleteDoctor(doctor.id, token);
-        // card.remove();
+        openModal("editDoctor", doctor);
       } catch (error) {
         console.error("Failed to edit doctor:", error);
         alert("Error editing doctor.");

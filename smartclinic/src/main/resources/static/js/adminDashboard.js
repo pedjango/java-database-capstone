@@ -18,7 +18,7 @@ function setupEventListeners() {
 
   if (addDoctorBtn) {
     addDoctorBtn.addEventListener("click", () => {
-      openModal("addDoctor");
+      openModal("addDoctor", null);
     });
   }
 
