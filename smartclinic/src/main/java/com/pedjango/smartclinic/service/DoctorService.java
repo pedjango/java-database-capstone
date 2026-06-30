@@ -73,7 +73,12 @@ public class DoctorService {
         doctor.setEmail(updated.getEmail());
         doctor.setPhone(updated.getPhone());
         doctor.setSpecialty(updated.getSpecialty());
+        doctor.setClinicAddress(updated.getClinicAddress());
+        doctor.setYearsOfExperience(updated.getYearsOfExperience());
         doctor.setAvailableTimes(updated.getAvailableTimes());
+        if (updated.getPassword() != null) {
+            doctor.setPassword(updated.getPassword());
+        }
 
         doctorRepository.save(doctor);
         return 1;

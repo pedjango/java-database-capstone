@@ -3,7 +3,7 @@ import { openModal } from "./components/modals.js";
 import {
   getDoctors,
   filterDoctors,
-  saveDoctor
+  saveDoctor, updateDoctor
 } from "./services/doctorServices.js";
 
 import { createDoctorCard } from "./components/doctorCard.js";
@@ -164,6 +164,100 @@ window.adminAddDoctor = async function () {
   } catch (error) {
     console.error(
       "Error adding doctor:",
+      error
+    );
+
+    alert(
+      "An unexpected error occurred."
+    );
+  }
+};
+
+window.adminEditDoctor = async function () {
+  const token = localStorage.getItem("token");
+
+  if (!token) {
+    alert("Unauthorized access. Please login again.");
+    return;
+  }
+
+  const id =
+    document.getElementById("doctorId")?.value.trim();
+
+  const name =
+    document.getElementById("doctorName")?.value.trim();
+
+  const specialty =
+    document.getElementById("doctorSpecialty")?.value;
+
+  const email =
+    document.getElementById("doctorEmail")?.value.trim();
+
+  const password =
+    document.getElementById("doctorPassword")?.value;
+
+  const phone =
+    document.getElementById("doctorPhone")?.value.trim();
+
+  const clinicAddress =
+    document.getElementById("doctorClinicAddress")?.value.trim();
+
+  const yearsOfExperience =
+    document.getElementById("doctorYearsOfExperience")?.value;
+
+  const availabilityCheckboxes =
+    document.querySelectorAll(
+      'input[name="availability"]:checked'
+    );
+
+  const availableTimes =
+    Array.from(availabilityCheckboxes)
+      .map((checkbox) => checkbox.value);
+
+  const doctor = {
+    id,
+    name,
+    specialty,
+    email,
+    phone,
+    clinicAddress:
+      clinicAddress || null,
+    yearsOfExperience:
+      yearsOfExperience
+        ? Number(yearsOfExperience)
+        : null,
+    availableTimes
+  };
+
+  if (password?.trim()) {
+    doctor.password = password;
+  }
+
+  try {
+    const response = await updateDoctor(
+      doctor,
+      token
+    );
+
+    if (response.success) {
+      alert("Doctor updated successfully.");
+
+      const modal = document.getElementById("modal");
+
+      if (modal) {
+        modal.style.display = "none";
+      }
+
+      await loadDoctorCards();
+    } else {
+      alert(
+        response.message ||
+        "Failed to update doctor."
+      );
+    }
+  } catch (error) {
+    console.error(
+      "Error updating doctor:",
       error
     );
 

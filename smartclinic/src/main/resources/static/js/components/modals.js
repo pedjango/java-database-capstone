@@ -75,6 +75,16 @@ export function openModal(type, object) {
 
       <input
         type="text"
+        id="doctorId"
+        placeholder="Doctor ID"
+        class="input-field"
+        value="${object.id ?? ""}"
+        hidden
+        disabled
+      >
+
+      <input
+        type="text"
         id="doctorName"
         placeholder="Doctor Name"
         class="input-field"
@@ -178,19 +188,8 @@ export function openModal(type, object) {
       </div>
 
       <div class="btn-container">
-          <button
-              class="dashboard-btn-secondary"
-              id="closeDoctorModal"
-          >
-              Cancel
-          </button>
-
-          <button
-              class="dashboard-btn"
-              id="updateDoctorBtn"
-          >
-              Update
-          </button>
+          <button class="dashboard-btn-secondary" id="closeDoctorModal">Cancel</button>
+          <button class="dashboard-btn" id="updateDoctorBtn">Update</button>
       </div>
   `;
   } else if (type === 'patientLogin') {
@@ -232,21 +231,6 @@ export function openModal(type, object) {
 
   document.getElementById('modal-body').innerHTML = modalContent;
   document.getElementById('modal').style.display = 'block';
-  if (type === "editDoctor") {
-    document.getElementById("doctorSpecialty").value =
-      object.specialty;
-
-    document.getElementById("closeDoctorModal").onclick = () => {
-      document.getElementById("modal").style.display = "none";
-    };
-
-    document.getElementById("updateDoctorBtn")
-      .addEventListener("click", () => {
-        // TODO: Trigger update
-        const updateDoctor = getDoctorFormData();
-        console.log(updateDoctor);
-      });
-  }
 
   document.getElementById('closeModal').onclick = () => {
     document.getElementById('modal').style.display = 'none';
@@ -265,6 +249,16 @@ export function openModal(type, object) {
       document.getElementById('modal').style.display = 'none';
     };
     document.getElementById('saveDoctorBtn').addEventListener('click', adminAddDoctor);
+  }
+
+  if (type === 'editDoctor') {
+    document.getElementById("doctorSpecialty").value =
+      object.specialty;
+
+    document.getElementById("closeDoctorModal").onclick = () => {
+      document.getElementById("modal").style.display = "none";
+    };
+    document.getElementById("updateDoctorBtn").addEventListener("click", adminEditDoctor);
   }
 
   if (type === 'adminLogin') {

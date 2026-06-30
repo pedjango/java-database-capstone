@@ -62,14 +62,43 @@ export async function saveDoctor(doctor, token) {
 
     return {
       success: response.ok,
-      message: response.message || "Doctor saved successfully",
+      message: response.message || "Doctor created successfully",
     };
   } catch (error) {
-    console.error("Error saving doctor:", error);
+    console.error("Error creating doctor:", error);
 
     return {
       success: false,
-      message: "Failed to save doctor"
+      message: "Failed to creat doctor"
+    };
+  }
+}
+
+export async function updateDoctor(doctor, token) {
+  try {
+    const response = await fetch(DOCTOR_BASE_API + "/update/" + doctor.id, {
+      method: "PUT",
+      headers: {
+        "Authorization": `Bearer ${token}`,
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify(doctor)
+    });
+
+    if (!response.ok) {
+      throw new Error("Failed to update doctor");
+    }
+
+    return {
+      success: response.ok,
+      message: response.message || "Doctor updated successfully",
+    };
+  } catch (error) {
+    console.error("Error updating doctor:", error);
+
+    return {
+      success: false,
+      message: "Failed to update doctor"
     };
   }
 }
