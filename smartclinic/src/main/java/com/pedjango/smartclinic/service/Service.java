@@ -139,9 +139,9 @@ public class Service {
     }
 
     public Long validateDoctorId(String subject) {
-        String doctorId = tokenService.extractSubject(subject);
+        String extracted = tokenService.extractSubject(subject);
         try {
-            return Long.parseLong(doctorId);
+            return doctorRepository.findIdByEmail(extracted.substring(7));
         } catch (Exception e) {
             log.error(e.getMessage());
             return null;

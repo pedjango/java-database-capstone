@@ -107,7 +107,7 @@ public class DoctorService {
         if (doctor == null || !doctor.getPassword().equals(password)) {
             return "Invalid email or password";
         }
-        return tokenService.generateToken("doctor");
+        return tokenService.generateToken("doctor-" + email);
     }
 
     @Transactional

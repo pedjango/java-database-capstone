@@ -5,24 +5,8 @@ import { getDoctors, filterDoctors } from "./services/doctorServices.js";
 const contentDiv = document.getElementById("content");
 
 async function loadDoctorCards() {
-  try {
-    const doctors = await getDoctors();
-
-    contentDiv.innerHTML = "";
-
-    if (!doctors || doctors.length === 0) {
-      contentDiv.innerHTML = "<p>No doctors available.</p>";
-      return;
-    }
-
-    doctors.forEach((doctor) => {
-      const card = createDoctorCard(doctor);
-      contentDiv.appendChild(card);
-    });
-  } catch (error) {
-    console.error("Error loading doctors:", error);
-    contentDiv.innerHTML = "<p>Failed to load doctors.</p>";
-  }
+  const response = await getDoctors();
+  renderDoctorCards(response.doctors);
 }
 
 document.addEventListener("DOMContentLoaded", () => {
@@ -77,16 +61,24 @@ if (searchBar) searchBar.addEventListener("input", filterDoctorsOnChange);
 if (filterTime) filterTime.addEventListener("change", filterDoctorsOnChange);
 if (filterSpecialty) filterSpecialty.addEventListener("change", filterDoctorsOnChange);
 
-export function renderDoctorCards(doctors) {
+function renderDoctorCards(doctors) {
+  const contentDiv = document.getElementById("content");
+
+  if (!contentDiv) {
+    return;
+  }
+
   contentDiv.innerHTML = "";
 
   if (!doctors || doctors.length === 0) {
-    contentDiv.innerHTML = "<p>No doctors found.</p>";
+    contentDiv.innerHTML = `
+            <p class="no-results">No doctors found</p>
+        `;
     return;
   }
 
   doctors.forEach((doctor) => {
-    const card = createDoctorCard(doctor);
-    contentDiv.appendChild(card);
+    const doctorCard = createDoctorCard(doctor);
+    contentDiv.appendChild(doctorCard);
   });
 }

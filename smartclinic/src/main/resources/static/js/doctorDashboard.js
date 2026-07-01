@@ -1,4 +1,4 @@
-import { getAllAppointments } from "./services/appointmentRecordService.js";
+import { getAppointments } from "./services/appointmentRecordService.js";
 import { createPatientRow } from "./components/patientRows.js";
 
 const patientTableBody = document.getElementById("patientTableBody");
@@ -46,7 +46,7 @@ if (datePicker) {
 
 async function loadAppointments() {
   try {
-    const appointments = await getAllAppointments(
+    const appointments = await getAppointments(
       selectedDate,
       patientName,
       token

@@ -16,6 +16,6 @@ public class TokenValidationService {
         if ("admin".equals(role) && "admin".equals(subject)) {
             return true;
         }
-        return "doctor".equals(role) && "doctor".equals(subject);
+        return "doctor".equals(role) && "doctor".equals(subject.substring(0, 6));
     }
 }

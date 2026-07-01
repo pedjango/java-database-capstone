@@ -97,9 +97,19 @@ export function createDoctorCard(doctor) {
   else if (role === "patient") {
     const bookNow = document.createElement("button");
     bookNow.textContent = "Book Now";
+    bookNow.classList.add("dashboard-btn-secondary");
 
-    bookNow.addEventListener("click", () => {
-      alert("Patient needs to login first.");
+    bookNow.addEventListener("click", async (e) => {
+      try {
+        const token = localStorage.getItem("token");
+
+        const patientData = await getPatientData(token);
+
+        openModal(e, doctor, patientData);
+      } catch (error) {
+        console.error("Booking error:", error);
+        alert("Unable to start booking process.");
+      }
     });
 
     actionsDiv.appendChild(bookNow);
@@ -109,6 +119,7 @@ export function createDoctorCard(doctor) {
   else if (role === "loggedPatient") {
     const bookNow = document.createElement("button");
     bookNow.textContent = "Book Now";
+    bookNow.classList.add("dashboard-btn-secondary");
 
     bookNow.addEventListener("click", async (e) => {
       try {

@@ -27,29 +27,8 @@ html, body {
 
 .card-actions {
     display: flex;
-    justify-content: center;
-    align-items: center;
-    background-color: #1F1F1F;
-    color: #FFFFFF;
-    padding: 12px;
-    border-radius: 8px;
-    cursor: pointer;
-    transition: background-color 0.25s ease, transform 0.2s ease;
-}
-
-.card-actions:hover {
-    background-color: #2A2A2A;
-    transform: translateY(-2px);
-}
-
-.card-actions button {
-    background-color: #0F62FE;
-    color: #FFFFFF;
-    border: none;
-    padding: 8px 14px;
-    border-radius: 6px;
-    cursor: pointer;
-    transition: filter 0.2s ease;
+    justify-content: space-between;
+    margin-top: 8px;
 }
 
 .card-actions button:hover {

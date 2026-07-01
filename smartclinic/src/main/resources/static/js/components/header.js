@@ -15,7 +15,7 @@ function renderHeader() {
   const token = localStorage.getItem("token");
 
   if (
-    (role === "loggedPatient" || role === "admin" || role === "doctor") &&
+    (role === "patient" || role === "admin" || role === "doctor") &&
     !token
   ) {
     localStorage.removeItem("userRole");
@@ -35,7 +35,6 @@ function renderHeader() {
   else if (role === "doctor") {
     headerContent += `
             <nav class="header-nav">
-                <a href="/doctorDashboard">Home</a>
                 <a href="#" id="logoutBtn">Logout</a>
             </nav>
         `;
@@ -44,7 +43,8 @@ function renderHeader() {
   else if (role === "patient") {
     headerContent += `
             <nav class="header-nav">
-                <a href="#" id="patientSignup">Sign Up</a>
+                <a href="/appointments">Appointments</a>
+                <a href="#" id="logoutBtn">Logout</a>
             </nav>
         `;
   }
@@ -52,7 +52,6 @@ function renderHeader() {
   else if (role === "loggedPatient") {
     headerContent += `
             <nav class="header-nav">
-                <a href="/patientDashboard">Home</a>
                 <a href="/appointments">Appointments</a>
                 <a href="#" id="logoutBtn">Logout</a>
             </nav>

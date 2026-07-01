@@ -153,11 +153,13 @@ export async function patientSignup(data) {
       body: JSON.stringify(data)
     });
 
-    const result = await response.json();
+    if (!response.ok) {
+      throw new Error("Failed to delete doctor");
+    }
 
     return {
       success: response.ok,
-      message: result.message || "Signup successful"
+      message: response.message || "Signup successful"
     };
   } catch (error) {
     console.error("Patient signup error:", error);

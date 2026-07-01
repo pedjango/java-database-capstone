@@ -59,16 +59,13 @@ public class TokenService {
             String extracted = extractSubject(token);
             switch (user) {
                 case "admin" -> {
-                    Admin admin = adminRepository.findByUsername(extracted);
-                    return admin != null;
+                    return adminRepository.existsByUsername(extracted);
                 }
                 case "doctor" -> {
-                    Doctor doctor = doctorRepository.findByEmail(extracted);
-                    return doctor != null;
+                    return doctorRepository.existsByEmail(extracted.substring(7));
                 }
                 case "patient" -> {
-                    Patient patient = patientRepository.findByEmail(extracted);
-                    return patient != null;
+                    return patientRepository.existsByEmail(extracted);
                 }
                 default -> {
                     return false;
