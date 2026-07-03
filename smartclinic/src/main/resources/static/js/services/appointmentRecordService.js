@@ -34,3 +34,56 @@ export async function getAppointments(date, patientName, token) {
     return [];
   }
 }
+
+export async function submitAppointment(doctor) {
+  const token = localStorage.getItem("token");
+  const date = document.getElementById("appointmentDate").value;
+  const time = document.getElementById("appointmentTime").value;
+  const reasonForVisit = document.getElementById("reasonForVisit").value;
+
+  if (!date || !time) {
+    alert("Please select date and time.");
+    return;
+  }
+
+  const startTime = time.split("-")[0];
+  const appointmentTime = `${date}T${startTime}:00`;
+
+  const appointment = {
+    doctor: {
+      id: doctor.id,
+    },
+    status: 0,
+    appointmentTime,
+    reasonForVisit
+  };
+
+  console.log(appointment);
+
+  try {
+    const response = await fetch(
+      `${API_BASE_URL}/appointments/book`,
+      {
+        method: "POST",
+        headers: {
+          Authorization: `Bearer ${token}`,
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify(
+          appointment
+        )
+      }
+    );
+
+    if (!response.ok) {
+      throw new Error();
+    }
+
+    alert("Appointment booked successfully.");
+
+    document.getElementById("modal").style.display = "none";
+  } catch (error) {
+    console.error(error);
+    alert("Unable to book appointment.");
+  }
+}

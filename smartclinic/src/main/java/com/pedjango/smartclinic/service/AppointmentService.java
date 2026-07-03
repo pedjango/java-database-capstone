@@ -1,6 +1,8 @@
 package com.pedjango.smartclinic.service;
 
 import com.pedjango.smartclinic.models.Appointment;
+import com.pedjango.smartclinic.models.Doctor;
+import com.pedjango.smartclinic.models.Patient;
 import com.pedjango.smartclinic.repository.AppointmentRepository;
 import com.pedjango.smartclinic.repository.DoctorRepository;
 import com.pedjango.smartclinic.repository.PatientRepository;
@@ -17,22 +19,28 @@ import java.util.Optional;
 public class AppointmentService {
 
     private final AppointmentRepository appointmentRepository;
-    @SuppressWarnings("unused")
     private final DoctorRepository doctorRepository;
-    @SuppressWarnings("unused")
     private final PatientRepository patientRepository;
+    private final TokenService tokenService;
 
     public AppointmentService(AppointmentRepository appointmentRepository,
                               DoctorRepository doctorRepository,
-                              PatientRepository patientRepository) {
+                              PatientRepository patientRepository,
+                              TokenService tokenService) {
         this.appointmentRepository = appointmentRepository;
         this.doctorRepository = doctorRepository;
         this.patientRepository = patientRepository;
+        this.tokenService = tokenService;
     }
 
     @Transactional
-    public int bookAppointment(Appointment appointment) {
+    public int bookAppointment(Appointment appointment, String token) {
         try {
+            String userEmail = tokenService.extractSubject(token);
+            Patient patient = patientRepository.findByEmail(userEmail);
+            Doctor doctor = doctorRepository.findById(appointment.getDoctor().getId()).orElse(null);
+            appointment.setPatient(patient);
+            appointment.setDoctor(doctor);
             appointmentRepository.save(appointment);
             return 1;
         } catch (Exception e) {

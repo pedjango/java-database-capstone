@@ -57,8 +57,17 @@ public class AppointmentController {
         return ResponseEntity.ok(appointments);
     }
 
-    @PostMapping("/book/{token}")
-    public ResponseEntity<?> bookAppointment(@PathVariable String token, @RequestBody Appointment appointment) {
+    @PostMapping("/book")
+    public ResponseEntity<?> bookAppointment(
+            @RequestBody Appointment appointment,
+            @RequestHeader("Authorization") String authorizationHeader) {
+        if (authorizationHeader == null || !authorizationHeader.startsWith("Bearer ")) {
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED)
+                    .body("Missing authorization token.");
+        }
+
+        String token = authorizationHeader.substring(7);
+
         if (service.validateToken(token, "patient")) {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Invalid or expired token.");
         }
@@ -71,7 +80,7 @@ public class AppointmentController {
             return ResponseEntity.status(HttpStatus.CONFLICT).body("Appointment slot is not available.");
         }
 
-        int result = appointmentService.bookAppointment(appointment);
+        int result = appointmentService.bookAppointment(appointment, token);
         return result == 1
                 ? ResponseEntity.status(HttpStatus.CREATED).body("Appointment booked successfully.")
                 : ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Failed to book appointment.");

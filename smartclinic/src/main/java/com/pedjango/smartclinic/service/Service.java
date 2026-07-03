@@ -85,13 +85,17 @@ public class Service {
         }
     }
 
-    @SuppressWarnings("unlikely-arg-type")
     public int validateAppointment(Long doctorId, LocalDate date, LocalTime time) {
-        Optional<Doctor> optional = doctorRepository.findById(doctorId);
-        if (optional.isEmpty()) return -1;
+        if (!doctorRepository.existsById(doctorId)) {
+            return -1;
+        }
 
+        String requestedSlot = String.format("%s-%s", time, time.plusHours(1));
         List<String> availableSlots = doctorService.getDoctorAvailability(doctorId, java.sql.Date.valueOf(date));
-        return availableSlots.contains(String.valueOf(time)) ? 1 : 0;
+
+        return availableSlots.contains(requestedSlot)
+                ? 1
+                : 0;
     }
 
     public boolean validatePatient(Patient patient) {

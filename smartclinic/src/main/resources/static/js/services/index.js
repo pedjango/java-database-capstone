@@ -230,3 +230,48 @@ async function loadDoctorPreview() {
 }
 
 document.addEventListener("DOMContentLoaded", loadDoctorPreview);
+
+window.initializeBookingModal = async function(doctor) {
+  const dateInput = document.getElementById("appointmentDate");
+  const timeSelect = document.getElementById("appointmentTime");
+  const closeBtn = document.getElementById("closeBookingModal");
+
+  console.log('INITIALIZE BOOKING MODAL:' + doctor);
+
+  closeBtn.onclick = () => {
+    document.getElementById("modal").style.display = "none";
+  };
+
+  dateInput.min = new Date().toISOString().split("T")[0];
+
+  dateInput.addEventListener(
+    "change",
+    async (e) => {
+      const date = e.target.value;
+
+      if (!date) {
+        return;
+      }
+
+      timeSelect.innerHTML =
+        `<option value="">Select a time slot</option>`;
+
+      doctor.availableTimes.forEach((slot) => {
+        const option =
+          document.createElement("option");
+
+        option.value = slot;
+        option.textContent = slot;
+
+        timeSelect.appendChild(option);
+      });
+    }
+  );
+
+  document
+    .getElementById("bookAppointmentBtn")
+    .addEventListener(
+      "click",
+      () => submitAppointment(doctor)
+    );
+}

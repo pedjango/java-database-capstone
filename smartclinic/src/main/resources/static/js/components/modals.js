@@ -1,3 +1,5 @@
+import {submitAppointment} from "../services/appointmentRecordService.js";
+
 export function openModal(type, object) {
   let modalContent = '';
   if (type === 'addDoctor') {
@@ -227,6 +229,52 @@ export function openModal(type, object) {
         <input type="password" id="doctorPassword" placeholder="Password" class="input-field">
         <button class="dashboard-btn" id="doctorLoginBtn">Login</button>
       `;
+  } else if (type === "bookAppointment") {
+    const doctor = object;
+    const availableOptions =
+      doctor.availableTimes
+        ?.map(
+          (slot) =>
+            `<option value="${slot}">${slot}</option>`
+        )
+        .join("") || "";
+    modalContent = `
+      <h2 style="margin-bottom: 0.85rem;">Book Appointment</h2>
+
+      <div class="doctor-booking-info">
+          <h3>${doctor.name}</h3>
+          <p>${doctor.specialty}</p>
+      </div>
+
+      <label>Select Date</label>
+      <input
+          type="date"
+          id="appointmentDate"
+          class="input-field">
+
+      <label>Available Time</label>
+      <select
+          id="appointmentTime"
+          class="input-field select-dropdown">
+          <option value="">
+              Select a time slot
+          </option>
+          ${availableOptions}
+      </select>
+
+      <label>Reason for Visit</label>
+      <textarea
+          id="reasonForVisit"
+          class="input-field"
+          rows="4"
+          placeholder="Describe your symptoms or reason for visit"
+      ></textarea>
+
+      <div class="btn-container" style="margin-top: 16px;">
+          <button class="dashboard-btn-secondary" id="closeBookingModal">Cancel</button>
+          <button class="dashboard-btn" id="bookAppointmentBtn">Book</button>
+      </div>
+  `;
   }
 
   document.getElementById('modal-body').innerHTML = modalContent;
@@ -267,6 +315,10 @@ export function openModal(type, object) {
 
   if (type === 'doctorLogin') {
     document.getElementById('doctorLoginBtn').addEventListener('click', doctorLoginHandler);
+  }
+
+  if (type === 'bookAppointment') {
+    document.getElementById('bookAppointmentBtn').addEventListener('click', () => submitAppointment(object));
   }
 }
 

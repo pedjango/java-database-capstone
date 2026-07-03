@@ -101,11 +101,7 @@ export function createDoctorCard(doctor) {
 
     bookNow.addEventListener("click", async (e) => {
       try {
-        const token = localStorage.getItem("token");
-
-        const patientData = await getPatientData(token);
-
-        openModal(e, doctor, patientData);
+        openModal("bookAppointment", doctor);
       } catch (error) {
         console.error("Booking error:", error);
         alert("Unable to start booking process.");
