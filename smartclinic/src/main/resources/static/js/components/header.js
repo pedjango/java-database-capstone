@@ -90,12 +90,4 @@ function logout() {
   window.location.href = "/";
 }
 
-
-function logoutPatient() {
-  localStorage.removeItem("token");
-  localStorage.setItem("userRole", "patient");
-
-  window.location.href = "/";
-}
-
 document.addEventListener("DOMContentLoaded", renderHeader);

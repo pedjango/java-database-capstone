@@ -282,6 +282,9 @@ export function openModal(type, object) {
 
   document.getElementById('closeModal').onclick = () => {
     document.getElementById('modal').style.display = 'none';
+    if (localStorage.getItem("userRole") != null && localStorage.getItem("token") == null) {
+      localStorage.removeItem("userRole");
+    }
   };
 
   if (type === "patientSignup") {
