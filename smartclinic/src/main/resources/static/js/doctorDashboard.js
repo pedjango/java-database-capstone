@@ -18,13 +18,13 @@ if (searchBar) {
   });
 }
 
-const todayButton = document.getElementById("todayButton");
+const todayButton = document.getElementById("todayAppointmentsBtn");
 
 if (todayButton) {
   todayButton.addEventListener("click", () => {
     selectedDate = new Date().toISOString().split("T")[0];
 
-    const datePicker = document.getElementById("datePicker");
+    const datePicker = document.getElementById("appointmentDate");
 
     if (datePicker) {
       datePicker.value = selectedDate;
@@ -34,7 +34,7 @@ if (todayButton) {
   });
 }
 
-const datePicker = document.getElementById("datePicker");
+const datePicker = document.getElementById("appointmentDate");
 
 if (datePicker) {
   datePicker.value = selectedDate;
@@ -56,12 +56,12 @@ async function loadAppointments() {
 
     if (!appointments || appointments.length === 0) {
       patientTableBody.innerHTML = `
-                <tr>
-                    <td colspan="5" class="noPatientRecord">
-                        No Appointments found for today
-                    </td>
-                </tr>
-            `;
+          <tr>
+              <td colspan="5" class="noPatientRecord">
+                  No Appointments found for today
+              </td>
+          </tr>
+      `;
       return;
     }
 
@@ -83,16 +83,15 @@ async function loadAppointments() {
     console.error("Error loading appointments:", error);
 
     patientTableBody.innerHTML = `
-            <tr>
-                <td colspan="5" class="noPatientRecord">
-                    Failed to load appointments
-                </td>
-            </tr>
-        `;
+        <tr>
+            <td colspan="5" class="noPatientRecord">
+                Failed to load appointments
+            </td>
+        </tr>
+    `;
   }
 }
 
-// Initial page load
 document.addEventListener("DOMContentLoaded", () => {
   loadAppointments();
 });
