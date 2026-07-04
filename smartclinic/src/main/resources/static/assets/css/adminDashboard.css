@@ -111,6 +111,25 @@ html, body {
     transform: translateY(-2px);
 }
 
+.dashboard-btn-delete {
+    border: 1px solid #b44646;
+    padding: 0.9rem 2rem;
+    border-radius: 10px;
+    background-color: #FFFFFF;
+    color: #b44646;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition:
+            background-color 0.3s ease,
+            transform 0.2s ease,
+            box-shadow 0.3s ease;
+}
+
+.dashboard-btn-delete:hover {
+    transform: translateY(-2px);
+}
+
 .doctor-listing-filter-section {
     display: flex;
     gap: 1rem;

@@ -140,6 +140,10 @@ tbody tr:hover {
     color: #CBD5E1;
 }
 
+#patientTableBody {
+    color: #0F172A;
+}
+
 @media (max-width: 768px) {
     .dashboard-controls,
     .filter-section {

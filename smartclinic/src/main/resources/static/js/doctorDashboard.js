@@ -67,16 +67,18 @@ async function loadAppointments() {
 
     appointments.forEach((appointment) => {
       const patient = appointment.patient || {};
+      let rowNumber = 1;
 
       const row = createPatientRow({
+        rowNumber,
         appointmentId: appointment.id,
         patientId: patient.id,
         patientName: patient.name,
         patientPhone: patient.phone,
-        patientEmail: patient.email,
-        prescription: appointment.prescription || "No Prescription"
+        patientEmail: patient.email
       });
 
+      rowNumber++;
       patientTableBody.appendChild(row);
     });
   } catch (error) {
