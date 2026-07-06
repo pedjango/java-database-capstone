@@ -31,30 +31,29 @@ const searchBar = document.getElementById("searchBar");
 const filterTime = document.getElementById("filterTime");
 const filterSpecialty = document.getElementById("filterSpecialty");
 
-function filterDoctorsOnChange() {
+async function filterDoctorsOnChange() {
   const name = searchBar ? searchBar.value.trim() : "";
   const time = filterTime ? filterTime.value : "";
   const specialty = filterSpecialty ? filterSpecialty.value : "";
 
-  filterDoctors(name, time, specialty)
-    .then((doctors) => {
-      contentDiv.innerHTML = "";
+  const filteredDoctorsResponse = await filterDoctors(
+    name,
+    time,
+    specialty
+  );
 
-      if (!doctors || doctors.length === 0) {
-        contentDiv.innerHTML =
-          "<p>No doctors found with the given filters.</p>";
-        return;
-      }
+  contentDiv.innerHTML = "";
 
-      doctors.forEach((doctor) => {
-        const card = createDoctorCard(doctor);
-        contentDiv.appendChild(card);
-      });
-    })
-    .catch((err) => {
-      console.error("Filter error:", err);
-      contentDiv.innerHTML = "<p>Error filtering doctors.</p>";
-    });
+  if (!filteredDoctorsResponse || filteredDoctorsResponse.length === 0 || !filteredDoctorsResponse.doctors) {
+    contentDiv.innerHTML =
+      "<p>No doctors found with the given filters.</p>";
+    return;
+  }
+
+  filteredDoctorsResponse.doctors.forEach((doctor) => {
+    const card = createDoctorCard(doctor);
+    contentDiv.appendChild(card);
+  });
 }
 
 if (searchBar) searchBar.addEventListener("input", filterDoctorsOnChange);

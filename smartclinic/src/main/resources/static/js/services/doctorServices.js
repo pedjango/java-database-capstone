@@ -127,8 +127,7 @@ export async function filterDoctors(name = "", time = "", specialty = "") {
       throw new Error("Failed to filter doctors");
     }
 
-    const data = await response.json();
-    return data;
+    return await response.json();
   } catch (error) {
     console.error("Error filtering doctors:", error);
     alert("Unable to filter doctors at this time.");
