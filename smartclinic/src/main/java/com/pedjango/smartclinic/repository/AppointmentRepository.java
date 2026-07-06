@@ -39,4 +39,12 @@ public interface AppointmentRepository extends JpaRepository<Appointment, Long> 
     @Transactional
     @Query("UPDATE Appointment a SET a.status = :status WHERE a.id = :id")
     void updateStatus(int status, long id);
+
+    List<Appointment> findByPatientNameIgnoreCaseAndAppointmentTimeBetween(
+            String patientName,
+            LocalDateTime start,
+            LocalDateTime end
+    );
+
+    List<Appointment> findByPatientNameIgnoreCase(String patientName);
 }

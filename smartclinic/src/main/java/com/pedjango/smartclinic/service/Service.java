@@ -151,4 +151,14 @@ public class Service {
             return null;
         }
     }
+
+    public String extractPatientName(String subject) {
+        String extracted = tokenService.extractSubject(subject);
+        try {
+            return patientRepository.findNameByEmail(extracted);
+        } catch (Exception e) {
+            log.error(e.getMessage());
+            return null;
+        }
+    }
 }

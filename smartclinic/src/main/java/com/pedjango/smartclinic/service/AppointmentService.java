@@ -109,6 +109,16 @@ public class AppointmentService {
     }
 
     @Transactional
+    public List<Appointment> getAppointmentsForPatient(String patientName, LocalDate date) {
+        if (date != null) {
+            LocalDateTime start = date.atStartOfDay();
+            LocalDateTime end = start.plusDays(1);
+            return appointmentRepository.findByPatientNameIgnoreCaseAndAppointmentTimeBetween(patientName, start, end);
+        }
+        return appointmentRepository.findByPatientNameIgnoreCase(patientName);
+    }
+
+    @Transactional
     public void changeAppointmentStatus(Long appointmentId, int status) {
         appointmentRepository.updateStatus(status, appointmentId);
     }

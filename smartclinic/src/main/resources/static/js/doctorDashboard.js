@@ -65,9 +65,9 @@ async function loadAppointments() {
       return;
     }
 
+    let rowNumber = 1;
     appointments.forEach((appointment) => {
       const patient = appointment.patient || {};
-      let rowNumber = 1;
 
       const row = createPatientRow({
         rowNumber,

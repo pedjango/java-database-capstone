@@ -27,6 +27,24 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 });
 
+document.addEventListener("DOMContentLoaded", () => {
+  const showPatientDashboard = document.getElementById("showPatientDashboard");
+  if (showPatientDashboard) {
+    showPatientDashboard.addEventListener("click", () => {
+      window.location.href = "/pages/loggedPatientDashboard.html";
+    });
+  }
+});
+
+document.addEventListener("DOMContentLoaded", () => {
+  const showPatientAppointments = document.getElementById("showPatientAppointments");
+  if (showPatientAppointments) {
+    showPatientAppointments.addEventListener("click", () => {
+      window.location.href = "/pages/patientAppointments.html";
+    });
+  }
+});
+
 const searchBar = document.getElementById("searchBar");
 const filterTime = document.getElementById("filterTime");
 const filterSpecialty = document.getElementById("filterSpecialty");

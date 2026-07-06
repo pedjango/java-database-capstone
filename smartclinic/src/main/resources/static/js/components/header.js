@@ -43,16 +43,8 @@ function renderHeader() {
   else if (role === "patient") {
     headerContent += `
             <nav class="header-nav">
-                <a href="/appointments">Appointments</a>
-                <a href="#" id="logoutBtn">Logout</a>
-            </nav>
-        `;
-  }
-
-  else if (role === "loggedPatient") {
-    headerContent += `
-            <nav class="header-nav">
-                <a href="/appointments">Appointments</a>
+                <a href="#" id="showPatientDashboard">Dashboard</a>
+                <a href="#" id="showPatientAppointments">Appointments</a>
                 <a href="#" id="logoutBtn">Logout</a>
             </nav>
         `;

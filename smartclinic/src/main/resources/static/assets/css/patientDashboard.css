@@ -138,3 +138,7 @@ html, body {
 .doctor-booking-info {
     margin-bottom: 24px;
 }
+
+#appointmentTableBody {
+    color: #0F172A;
+}

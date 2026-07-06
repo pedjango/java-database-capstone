@@ -57,6 +57,30 @@ public class AppointmentController {
         return ResponseEntity.ok(appointments);
     }
 
+    @GetMapping("/patient")
+    public ResponseEntity<?> getAppointmentsForPatient(
+            @RequestParam(required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate date,
+            @RequestHeader("Authorization") String authorizationHeader) {
+        if (authorizationHeader == null || !authorizationHeader.startsWith("Bearer ")) {
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED)
+                    .body("Missing authorization token.");
+        }
+
+        String token = authorizationHeader.substring(7);
+
+        if (service.validateToken(token, "patient")) {
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Invalid or expired token.");
+        }
+
+        String patientName = service.extractPatientName(token);
+        if (patientName == null) {
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Patient isn't authorized.");
+        }
+
+        List<Appointment> appointments = appointmentService.getAppointmentsForPatient(patientName, date);
+        return ResponseEntity.ok(appointments);
+    }
+
     @PostMapping("/book")
     public ResponseEntity<?> bookAppointment(
             @RequestBody Appointment appointment,

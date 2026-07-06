@@ -35,6 +35,35 @@ export async function getAppointments(date, patientName, token) {
   }
 }
 
+export async function getAppointmentsForPatient(date, token) {
+  try {
+    const params = new URLSearchParams();
+
+    if (date) {
+      params.append("date", date);
+    }
+
+    const response = await fetch(
+      `${APPOINTMENT_BASE_API}/patient?${params.toString()}`,
+      {
+        method: "GET",
+        headers: {
+          Authorization: `Bearer ${token}`
+        }
+      }
+    );
+
+    if (!response.ok) {
+      throw new Error("Failed to fetch appointments");
+    }
+
+    return await response.json();
+  } catch (error) {
+    console.error("Error fetching appointments:", error);
+    return [];
+  }
+}
+
 export async function submitAppointment(doctor) {
   const token = localStorage.getItem("token");
   const date = document.getElementById("appointmentDate").value;

@@ -1,10 +1,61 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Patient Appointments</title>
 
-</body>
+        <link rel="icon" href="../assets/images/logo/favicon.ico" />
+        <link rel="stylesheet" href="../assets/css/adminDashboard.css" />
+        <link rel="stylesheet" href="../assets/css/doctorDashboard.css" />
+        <link rel="stylesheet" href="../assets/css/patientDashboard.css" />
+        <link rel="stylesheet" href="../assets/css/header.css" />
+        <link rel="stylesheet" href="../assets/css/footer.css" />
+
+        <script src="../js/patientAppointment.js" type="module" defer></script>
+        <script src="../js/components/header.js" defer></script>
+        <script src="../js/components/footer.js" defer></script>
+        <script type="module" src="../js/components/modals.js"></script>
+    </head>
+    <body>
+        <div class="container">
+            <div class="wrapper">
+                <div id="header"></div>
+
+                <main class="main-content">
+                    <section class="filter-section">
+                        <button id="showAllAppointmentsBtn" class="dashboard-btn">
+                            All Appointments
+                        </button>
+                        <button id="todayAppointmentsBtn" class="dashboard-btn">
+                            Today's Appointments
+                        </button>
+
+                        <input type="date" id="appointmentDate" class="input-field" />
+                    </section>
+
+                    <section class="table-section">
+                        <table id="patientTable">
+                            <thead>
+                            <tr>
+                                <th>#</th>
+                                <th>Doctor</th>
+                                <th>Specialty</th>
+                                <th>Appointment Date</th>
+                                <th>Appointment Time</th>
+                                <th>Actions</th>
+                            </tr>
+                            </thead>
+
+                            <tbody id="appointmentTableBody"></tbody>
+                        </table>
+                    </section>
+                </main>
+
+                <div id="footer"></div>
+            </div>
+        </div>
+
+        <script type="module" src="../js/patientDashboard.js" defer></script>
+    </body>
 </html>
