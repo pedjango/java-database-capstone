@@ -122,4 +122,14 @@ public class AppointmentService {
     public void changeAppointmentStatus(Long appointmentId, int status) {
         appointmentRepository.updateStatus(status, appointmentId);
     }
+
+    public Appointment getAppointmentById(Long appointmentId, Long doctorId, String patientName) {
+        Optional<Appointment> appointment;
+        if (doctorId != null) {
+            appointment = appointmentRepository.findById_AndDoctor_Id(appointmentId, doctorId);
+        } else {
+            appointment = appointmentRepository.findById_AndPatient_Name(appointmentId, patientName);
+        }
+        return appointment.orElse(null);
+    }
 }

@@ -81,7 +81,8 @@ async function loadAppointmentsForPatient() {
         specialty: doctor.specialty,
         appointmentDate: appointment.appointmentDate,
         appointmentTime: appointment.appointmentTimeOnly,
-        appointmentId: appointment.id
+        appointmentId: appointment.id,
+        appointment: appointment
       });
 
       rowNumber++;

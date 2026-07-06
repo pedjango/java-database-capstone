@@ -81,6 +81,54 @@ public class AppointmentController {
         return ResponseEntity.ok(appointments);
     }
 
+    @GetMapping("/{appointmentId}/details")
+    public ResponseEntity<?> getAppointmentDetails(
+            @PathVariable("appointmentId") Long appointmentId,
+            @RequestHeader("Authorization") String authorizationHeader) {
+        if (authorizationHeader == null || !authorizationHeader.startsWith("Bearer ")) {
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED)
+                    .body("Missing authorization token.");
+        }
+
+        String token = authorizationHeader.substring(7);
+
+        if (service.validateToken(token, "doctor")) {
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Invalid or expired token.");
+        }
+
+        Long doctorId = service.validateDoctorId(token);
+        if (doctorId == null) {
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Doctor ID missing or invalid.");
+        }
+
+        Appointment appointment = appointmentService.getAppointmentById(appointmentId, doctorId, null);
+        return ResponseEntity.ok(appointment);
+    }
+
+    @GetMapping("/patient/{appointmentId}/details")
+    public ResponseEntity<?> getAppointmentDetailsForPatient(
+            @PathVariable("appointmentId") Long appointmentId,
+            @RequestHeader("Authorization") String authorizationHeader) {
+        if (authorizationHeader == null || !authorizationHeader.startsWith("Bearer ")) {
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED)
+                    .body("Missing authorization token.");
+        }
+
+        String token = authorizationHeader.substring(7);
+
+        if (service.validateToken(token, "patient")) {
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Invalid or expired token.");
+        }
+
+        String patientName = service.extractPatientName(token);
+        if (patientName == null) {
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Patient isn't authorized.");
+        }
+
+        Appointment appointment = appointmentService.getAppointmentById(appointmentId, null, patientName);
+        return ResponseEntity.ok(appointment);
+    }
+
     @PostMapping("/book")
     public ResponseEntity<?> bookAppointment(
             @RequestBody Appointment appointment,

@@ -1,10 +1,14 @@
+import {openModal} from "./modals.js";
+import {cancelAppointment, viewAppointmentDetails} from "../services/appointmentRecordService.js";
+
 export function createPatientRow({
                                    rowNumber,
                                    appointmentId,
                                    patientId,
                                    patientName,
                                    patientPhone,
-                                   patientEmail
+                                   patientEmail,
+                                   appointment
                                  }) {
   const tr = document.createElement("tr");
 
@@ -16,34 +20,32 @@ export function createPatientRow({
     <td>${patientEmail ?? "-"}</td>
     <td>
         <div class="row-actions">
-            <button class="view-btn dashboard-btn-secondary" data-id="${appointmentId}">
+            <button class="view-btn dashboard-btn-secondary" id="appointmentDetailsDoctorBtn" data-id="${appointmentId}">
                 View
             </button>
 
-            <button class="delete-btn dashboard-btn-delete" data-id="${appointmentId}">
-                Delete
+            <button class="delete-btn dashboard-btn-delete" id="appointmentDeleteDoctorBtn" data-id="${appointmentId}">
+                Cancel
             </button>
         </div>
     </td>
   `;
 
-  const viewBtn = tr.querySelector(".view-btn");
-  const deleteBtn = tr.querySelector(".delete-btn");
+  const viewBtn = tr.querySelector("#appointmentDetailsDoctorBtn");
+  const deleteBtn = tr.querySelector("#appointmentDeleteDoctorBtn");
 
   viewBtn.addEventListener("click", () => {
-    alert(`Appointment ID: ${appointmentId}`);
-    // TODO | openModal("appointmentDetails", appointmentId)
+    openModal("appointmentDetails", appointment);
   });
 
   deleteBtn.addEventListener("click", () => {
-    const confirmDelete = confirm("Are you sure you want to delete this appointment?");
+    const confirmDelete = confirm("Are you sure you want to cancel this appointment?");
 
     if (!confirmDelete) return;
 
-    console.log("DELETE appointment:", appointmentId);
-
-    // TODO await deleteAppointment(appointmentId)
-    // tr.remove()
+    cancelAppointment(appointmentId).then(() => {
+      tr.remove();
+    });
   });
 
   return tr;
@@ -55,7 +57,8 @@ export function createAppointmentRowForPatient({
                                    specialty,
                                    appointmentDate,
                                    appointmentTime,
-                                   appointmentId
+                                   appointmentId,
+                                   appointment
                                  }) {
   const tr = document.createElement("tr");
 
@@ -67,34 +70,32 @@ export function createAppointmentRowForPatient({
     <td>${appointmentTime ?? "-"}</td>
     <td>
         <div class="row-actions">
-            <button class="view-btn dashboard-btn-secondary" data-id="${appointmentId}">
+            <button class="view-btn dashboard-btn-secondary" id="appointmentDetailsPatientBtn" data-id="${appointmentId}">
                 View
             </button>
 
-            <button class="delete-btn dashboard-btn-delete" data-id="${appointmentId}">
-                Delete
+            <button class="delete-btn dashboard-btn-delete" id="appointmentDeletePatientBtn" data-id="${appointmentId}">
+                Cancel
             </button>
         </div>
     </td>
   `;
 
-  const viewBtn = tr.querySelector(".view-btn");
-  const deleteBtn = tr.querySelector(".delete-btn");
+  const viewBtn = tr.querySelector("#appointmentDetailsPatientBtn");
+  const deleteBtn = tr.querySelector("#appointmentDeletePatientBtn");
 
   viewBtn.addEventListener("click", () => {
-    alert(`Appointment ID: ${appointmentId}`);
-    // TODO | openModal("appointmentDetails", appointmentId)
+    openModal("appointmentDetails", appointment);
   });
 
   deleteBtn.addEventListener("click", () => {
-    const confirmDelete = confirm("Are you sure you want to delete this appointment?");
+    const confirmDelete = confirm("Are you sure you want to cancel this appointment?");
 
     if (!confirmDelete) return;
 
-    console.log("DELETE appointment:", appointmentId);
-
-    // TODO await deleteAppointment(appointmentId)
-    // tr.remove()
+    cancelAppointment(appointmentId).then(() => {
+      tr.remove();
+    });
   });
 
   return tr;

@@ -1,4 +1,5 @@
 package com.pedjango.smartclinic.service;
+
 import com.pedjango.smartclinic.models.Doctor;
 import com.pedjango.smartclinic.models.Appointment;
 import com.pedjango.smartclinic.repository.AppointmentRepository;

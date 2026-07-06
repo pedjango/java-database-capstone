@@ -75,7 +75,8 @@ async function loadAppointments() {
         patientId: patient.id,
         patientName: patient.name,
         patientPhone: patient.phone,
-        patientEmail: patient.email
+        patientEmail: patient.email,
+        appointment: appointment
       });
 
       rowNumber++;

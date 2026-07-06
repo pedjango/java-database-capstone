@@ -1,4 +1,4 @@
-import {submitAppointment} from "../services/appointmentRecordService.js";
+import {cancelAppointment, submitAppointment, viewAppointmentDetails} from "../services/appointmentRecordService.js";
 
 export function openModal(type, object) {
   let modalContent = '';
@@ -275,6 +275,56 @@ export function openModal(type, object) {
           <button class="dashboard-btn" id="bookAppointmentBtn">Book</button>
       </div>
   `;
+  } else if (type === "appointmentDetails") {
+    const appointment = object;
+
+    modalContent = `
+    <h2 style="margin-bottom: 1rem;">
+      Appointment Details
+    </h2>
+
+    <div class="appointment-details">
+
+      <div class="details-section">
+        <h3>Doctor</h3>
+        <p><strong>Name:</strong> ${appointment.doctor.name}</p>
+        <p><strong>Specialty:</strong> ${appointment.doctor.specialty}</p>
+        <p><strong>Email:</strong> ${appointment.doctor.email}</p>
+        <p><strong>Phone:</strong> ${appointment.doctor.phone}</p>
+      </div>
+
+      <div class="details-section">
+        <h3>Patient</h3>
+        <p><strong>Name:</strong> ${appointment.patient.name}</p>
+        <p><strong>Email:</strong> ${appointment.patient.email}</p>
+        <p><strong>Phone:</strong> ${appointment.patient.phone}</p>
+      </div>
+
+      <div class="details-section">
+        <h3>Appointment</h3>
+        <p><strong>Date:</strong> ${appointment.appointmentDate}</p>
+        <p><strong>Time:</strong> ${appointment.appointmentTimeOnly.substring(0, 5)} - ${appointment.endTime.substring(11, 16)}</p>
+      </div>
+
+      <div class="details-section">
+        <h3>Reason for Visit</h3>
+        <p>${appointment.reasonForVisit || "Not specified"}</p>
+      </div>
+
+      <div class="details-section">
+        <h3>Doctor Notes</h3>
+        <p>${appointment.notes || "No notes added."}</p>
+      </div>
+
+      <div class="btn-container">
+        <button
+          id="closeAppointmentModal"
+          class="dashboard-btn-secondary">
+          Close
+        </button>
+      </div>
+    </div>
+  `;
   }
 
   document.getElementById('modal-body').innerHTML = modalContent;
@@ -323,6 +373,14 @@ export function openModal(type, object) {
   if (type === 'bookAppointment') {
     document.getElementById('bookAppointmentBtn').addEventListener('click', () => submitAppointment(object));
   }
+
+  if (type === 'appointmentDetails') {
+    document
+      .getElementById("closeAppointmentModal")
+      .addEventListener("click", () => {
+        document.getElementById("modal").style.display = "none";
+      });
+  }
 }
 
 function formatTimeSlot(slot) {
@@ -342,56 +400,4 @@ function formatTimeSlot(slot) {
   };
 
   return `${format(start)} - ${format(end)}`;
-}
-
-function getDoctorFormData() {
-  const name =
-    document.getElementById("doctorName")?.value.trim();
-
-  const specialty =
-    document.getElementById("doctorSpecialty")?.value;
-
-  const email =
-    document.getElementById("doctorEmail")?.value.trim();
-
-  const password =
-    document.getElementById("doctorPassword")?.value;
-
-  const phone =
-    document.getElementById("doctorPhone")?.value.trim();
-
-  const clinicAddress =
-    document.getElementById("doctorClinicAddress")?.value.trim();
-
-  const yearsOfExperience =
-    document.getElementById("doctorYearsOfExperience")?.value;
-
-  const availabilityCheckboxes =
-    document.querySelectorAll(
-      'input[name="availability"]:checked'
-    );
-
-  const availableTimes =
-    Array.from(availabilityCheckboxes)
-      .map((checkbox) => checkbox.value);
-
-  const doctor = {
-    name,
-    specialty,
-    email,
-    phone,
-    clinicAddress:
-      clinicAddress || null,
-    yearsOfExperience:
-      yearsOfExperience
-        ? Number(yearsOfExperience)
-        : null,
-    availableTimes
-  };
-
-  if (password?.trim()) {
-    doctor.password = password;
-  }
-
-  return doctor;
 }

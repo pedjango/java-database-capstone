@@ -9,6 +9,7 @@ import org.springframework.stereotype.Repository;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Optional;
 
 @Repository
 public interface AppointmentRepository extends JpaRepository<Appointment, Long> {
@@ -47,4 +48,8 @@ public interface AppointmentRepository extends JpaRepository<Appointment, Long> 
     );
 
     List<Appointment> findByPatientNameIgnoreCase(String patientName);
+
+    Optional<Appointment> findById_AndDoctor_Id(Long id, Long doctorId);
+
+    Optional<Appointment> findById_AndPatient_Name(Long appointmentId, String patientName);
 }

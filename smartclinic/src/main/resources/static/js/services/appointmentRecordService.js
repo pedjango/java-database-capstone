@@ -87,11 +87,9 @@ export async function submitAppointment(doctor) {
     reasonForVisit
   };
 
-  console.log(appointment);
-
   try {
     const response = await fetch(
-      `${API_BASE_URL}/appointments/book`,
+      `${APPOINTMENT_BASE_API}/book`,
       {
         method: "POST",
         headers: {
@@ -114,5 +112,59 @@ export async function submitAppointment(doctor) {
   } catch (error) {
     console.error(error);
     alert("Unable to book appointment.");
+  }
+}
+
+export async function viewAppointmentDetails(appointmentId) {
+  const token = localStorage.getItem("token");
+
+  try {
+    const response = await fetch(
+      `${APPOINTMENT_BASE_API}/${appointmentId}/details`,
+      {
+        method: "GET",
+        headers: {
+          Authorization: `Bearer ${token}`,
+          "Content-Type": "application/json"
+        }
+      }
+    );
+
+    if (!response.ok) {
+      throw new Error();
+    }
+
+    return await response.json();
+  } catch (error) {
+    console.error(error);
+    alert("Unable to view appointment.");
+  }
+}
+
+export async function cancelAppointment(appointmentId) {
+  const token = localStorage.getItem("token");
+
+  try {
+    const response = await fetch(
+      `${API_BASE_URL}/appointments/${appointmentId}/delete`,
+      {
+        method: "DELETE",
+        headers: {
+          Authorization: `Bearer ${token}`,
+          "Content-Type": "application/json"
+        }
+      }
+    );
+
+    if (!response.ok) {
+      throw new Error();
+    }
+
+    alert("Appointment deleted successfully.");
+
+    document.getElementById("modal").style.display = "none";
+  } catch (error) {
+    console.error(error);
+    alert("Unable to delete appointment.");
   }
 }
