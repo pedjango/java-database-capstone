@@ -43,7 +43,7 @@ export function createPatientRow({
 
     if (!confirmDelete) return;
 
-    cancelAppointment(appointmentId).then(() => {
+    cancelAppointment(appointmentId, patientId).then(() => {
       tr.remove();
     });
   });
@@ -93,7 +93,7 @@ export function createAppointmentRowForPatient({
 
     if (!confirmDelete) return;
 
-    cancelAppointment(appointmentId).then(() => {
+    cancelAppointment(appointmentId, appointment.patient.id).then(() => {
       tr.remove();
     });
   });

@@ -141,12 +141,12 @@ export async function viewAppointmentDetails(appointmentId) {
   }
 }
 
-export async function cancelAppointment(appointmentId) {
+export async function cancelAppointment(appointmentId, patientId) {
   const token = localStorage.getItem("token");
 
   try {
     const response = await fetch(
-      `${API_BASE_URL}/appointments/${appointmentId}/delete`,
+      `${APPOINTMENT_BASE_API}/cancel/${appointmentId}/${patientId}`,
       {
         method: "DELETE",
         headers: {

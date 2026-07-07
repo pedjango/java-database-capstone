@@ -158,12 +158,20 @@ public class AppointmentController {
                 : ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Failed to book appointment.");
     }
 
-    @PutMapping("/update/{token}/{appointmentId}/{patientId}")
-    public ResponseEntity<?> updateAppointment(@PathVariable String token,
-                                               @PathVariable Long appointmentId,
-                                               @PathVariable Long patientId,
-                                               @RequestBody Appointment updatedAppointment) {
-        if (service.validateToken(token, "patient")) {
+    @PutMapping("/update/{appointmentId}/{patientId}")
+    public ResponseEntity<?> updateAppointment(
+            @PathVariable Long appointmentId,
+            @PathVariable Long patientId,
+            @RequestBody Appointment updatedAppointment,
+            @RequestHeader("Authorization") String authorizationHeader) {
+        if (authorizationHeader == null || !authorizationHeader.startsWith("Bearer ")) {
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED)
+                    .body("Missing authorization token.");
+        }
+
+        String token = authorizationHeader.substring(7);
+
+        if (service.validateToken(token, "patient") && service.validateToken(token, "doctor")) {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Invalid or expired token.");
         }
 
@@ -174,11 +182,19 @@ public class AppointmentController {
                 : ResponseEntity.status(HttpStatus.BAD_REQUEST).body(result);
     }
 
-    @DeleteMapping("/cancel/{token}/{appointmentId}/{patientId}")
-    public ResponseEntity<?> cancelAppointment(@PathVariable String token,
-                                               @PathVariable Long appointmentId,
-                                               @PathVariable Long patientId) {
-        if (service.validateToken(token, "patient")) {
+    @DeleteMapping("/cancel/{appointmentId}/{patientId}")
+    public ResponseEntity<?> cancelAppointment(
+            @PathVariable Long appointmentId,
+            @PathVariable Long patientId,
+            @RequestHeader("Authorization") String authorizationHeader) {
+        if (authorizationHeader == null || !authorizationHeader.startsWith("Bearer ")) {
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED)
+                    .body("Missing authorization token.");
+        }
+
+        String token = authorizationHeader.substring(7);
+
+        if (service.validateToken(token, "patient") && service.validateToken(token, "doctor")) {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Invalid or expired token.");
         }
 
