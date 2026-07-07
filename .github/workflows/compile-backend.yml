@@ -25,5 +25,5 @@ jobs:
 
       - name: Compile with Maven
         run: |
-          cd app
+          cd smartclinic
           mvn -B clean compile -Dproject.build.sourceEncoding=UTF-8 -Dproject.reporting.outputEncoding=UTF-8
