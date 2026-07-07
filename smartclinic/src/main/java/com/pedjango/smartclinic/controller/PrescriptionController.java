@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -29,8 +30,17 @@ public class PrescriptionController {
         this.service = service;
     }
 
-    @PostMapping("/save/{token}")
-    public ResponseEntity<?> savePrescription(@RequestBody Prescription prescription, @PathVariable String token) {
+    @PostMapping("/save")
+    public ResponseEntity<?> savePrescription(
+            @RequestBody Prescription prescription,
+            @RequestHeader("Authorization") String authorizationHeader) {
+        if (authorizationHeader == null || !authorizationHeader.startsWith("Bearer ")) {
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED)
+                    .body("Missing authorization token.");
+        }
+
+        String token = authorizationHeader.substring(7);
+
         if (service.validateToken(token, "doctor")) {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Invalid or expired token.");
         }
@@ -40,8 +50,17 @@ public class PrescriptionController {
         return prescriptionService.savePrescription(prescription);
     }
 
-    @GetMapping("/{appointmentId}/{token}")
-    public ResponseEntity<?> getPrescription(@PathVariable Long appointmentId, @PathVariable String token) {
+    @GetMapping("/{appointmentId}")
+    public ResponseEntity<?> getPrescription(
+            @PathVariable Long appointmentId,
+            @RequestHeader("Authorization") String authorizationHeader) {
+        if (authorizationHeader == null || !authorizationHeader.startsWith("Bearer ")) {
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED)
+                    .body("Missing authorization token.");
+        }
+
+        String token = authorizationHeader.substring(7);
+
         if (service.validateToken(token, "doctor")) {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Invalid or expired token.");
         }
