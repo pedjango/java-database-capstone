@@ -36,8 +36,6 @@ _As an admin, I want to log into the portal using my username and password, so t
 **Story Points:** 5
 
 **Notes:**
-- Authentication should be implemented using Spring Security.
-- Passwords must be securely encrypted.
 - JWT authentication will be used for protected routes.
 
 ---
@@ -171,7 +169,6 @@ _As a patient, I want to sign up using my email and password, so that I can book
 **Story Points:** 5
 
 **Notes:**
-- Registration should integrate with Spring Security authentication.
 - Email validation should follow standard formatting rules.
 
 ---
@@ -193,7 +190,6 @@ _As a patient, I want to log into the portal, so that I can manage my appointmen
 **Story Points:** 5
 
 **Notes:**
-- Authentication should be implemented using Spring Security and JWT.
 - Patient sessions must remain secure across requests.
 
 ---
@@ -283,7 +279,6 @@ _As a doctor, I want to log into the portal, so that I can manage my appointment
 **Story Points:** 5
 
 **Notes:**
-- Authentication should be implemented using Spring Security and JWT.
 - Doctor sessions must remain secure across requests.
 
 ---
